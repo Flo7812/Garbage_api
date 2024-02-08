@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node sequelizeDB.js",
-    "dev": "node --watch sequelizeDB.js"
+    "start": "node -r dotenv/config server.js",
+    "dev": "node -r dotenv/config --watch server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
     "mysql2": "^3.9.1",
+    "save": "^2.9.0",
     "sequelize": "^6.36.0"
   }
 }

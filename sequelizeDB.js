@@ -1,17 +1,10 @@
 const {Sequelize} = require('sequelize');
 
-const sequelize = new Sequelize('sequelize_test', 'root','',{
-    host: 'localhost',
+//using DB has already created
+const sequelize = new Sequelize(process.env.DB, process.env.USER,process.env.PASSWORD,{
+    host: process.env.HOST,
     dialect: 'mysql',
     logging: false
-})
+});
 
-async function connectionToDB(){
-    try { 
-        await sequelize.authenticate()
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.log('Unable to connect to the database:', error);
-    }
-}
-connectionToDB()
+module.exports = sequelize
