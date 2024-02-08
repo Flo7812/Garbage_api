@@ -1,0 +1,17 @@
+{
+  "name": "sequelize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node sequelizeDB.js",
+    "dev": "node --watch sequelizeDB.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.36.0"
+  }
+}
