@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../sequelizeDB');
 
 const Testimony = sequelize.define('Testimony',{
     
@@ -9,11 +9,11 @@ const Testimony = sequelize.define('Testimony',{
         autoIncrement: true
     },
     author_lastName:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false
     },
     author_firstName:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false    
     },
     content:{
@@ -29,7 +29,8 @@ const Testimony = sequelize.define('Testimony',{
         allowNull: false,
     },
 },{
-    paranoid: true
+    paranoid: true,
+    tableName: 'testimonials'
 });
 
 module.exports = Testimony

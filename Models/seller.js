@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../sequelizeDB');
 
-const Seller = sequelize.define({
+const Seller = sequelize.define('Seller',{
     
     seller_id:{
         type: DataTypes.INTEGER(11),
@@ -9,11 +9,11 @@ const Seller = sequelize.define({
         autoIncrement: true
     },
     lastName:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false
     },
     firstName:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false    
     },
     email:{
@@ -25,7 +25,7 @@ const Seller = sequelize.define({
         unique: true
     },
     address:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false
     },
     phone:{

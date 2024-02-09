@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../sequelizeDB');
 
-const Car = sequelize.define({
+const Car = sequelize.define('Car',{
 
     car_id:{
         type: DataTypes.INTEGER(11),

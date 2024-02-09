@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../sequelizeDB');
 
-const User = sequelize.define({
+const User = sequelize.define('User',{
     
     user_id:{
         type: DataTypes.INTEGER(11),
@@ -9,15 +9,15 @@ const User = sequelize.define({
         autoIncrement: true
     },
     lastName:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false
     },
     firstName:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false    
     },
     pseudo:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },

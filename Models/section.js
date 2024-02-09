@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../sequelizeDB');
 
 const Section = sequelize.define('Section',{
     
@@ -9,7 +9,7 @@ const Section = sequelize.define('Section',{
         autoIncrement: true
     },
     Title:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false
     },
     content:{
