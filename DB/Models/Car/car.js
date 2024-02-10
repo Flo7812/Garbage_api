@@ -1,9 +1,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
+
 const Car = sequelize.define('Car',{
 
-    car_id:{
+    id:{
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
         primaryKey: true
@@ -12,7 +13,11 @@ const Car = sequelize.define('Car',{
         type: DataTypes.TINYINT,
         allowNull: false
     },
-    model_type:{
+    model:{
+        type: DataTypes.TINYINT,
+        allowNull: false
+    },
+    motor:{
         type: DataTypes.TINYINT,
         allowNull: false
     },
@@ -20,24 +25,27 @@ const Car = sequelize.define('Car',{
         type: DataTypes.INTEGER(11),
         allowNull: false
     },
-    img:{
-        type: DataTypes.BLOB,
+    initial_registration:{
+        type: DataTypes.DATE,
         allowNull: false
     },
-    motor_type:{
-        type: DataTypes.TINYINT,
-        allowNull: false
+    img:{
+        type: DataTypes.BLOB,
+        defaultValue: '',
+        // allowNull: false
     },
     description:{
         type: DataTypes.TEXT,
-        allowNull: false,
         deaultValue: ''
     },
-    seller:{
-        type: DataTypes.INTEGER(11),
-        allowNull: false
-    }
+    // seller:{
+    //     type: DataTypes.INTEGER(11),
+    //     allowNull: false
+    // }
 },{paranoid: true})
+
+Car.sync()
+
 
 module.exports = Car
 // console.log(Car === sequelize.models.Car);

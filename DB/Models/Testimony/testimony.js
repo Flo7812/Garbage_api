@@ -3,7 +3,7 @@ const sequelize = require('../../sequelizeDB');
 
 const Testimony = sequelize.define('Testimony',{
     
-    testimony_id:{
+    id:{
         type: DataTypes.INTEGER(11),
         primaryKey: true,
         autoIncrement: true
@@ -18,10 +18,11 @@ const Testimony = sequelize.define('Testimony',{
     },
     content:{
         type: DataTypes.TEXT,
+        defaultValue: '',
         allowNull: false
     },
     isValidated:{
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.TINYINT,
         allowNull: false,    
     },
     validator:{

@@ -2,9 +2,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
 
-const TestimonyStatus = sequelize.define('TestimonyStatus',{
+const TestimonyStatus = sequelize.define('Testimony_Status',{
 
-    testimonySatus_id:{
+    id:{
         type: DataTypes.TINYINT,
         primaryKey: true,
         autoIncrement:true,
@@ -20,10 +20,9 @@ const TestimonyStatus = sequelize.define('TestimonyStatus',{
         allowNull: false,
         unique: true
     }
-
 },{
     timestamps: false,
-    tableName: 'testimony_status'
+    freezeTableName: true
 })
 
 

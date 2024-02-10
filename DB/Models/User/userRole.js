@@ -2,9 +2,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
 
-const UserRole = sequelize.define('UserRole',{
+const UserRole = sequelize.define('User_Role',{
 
-    userRole_id:{
+    id:{
         type: DataTypes.TINYINT,
         primaryKey: true,
         autoIncrement: true,
@@ -18,7 +18,6 @@ const UserRole = sequelize.define('UserRole',{
 
 },{
     timestamps: false,
-    tableName: 'user_role'
 })
 
 module.exports = UserRole

@@ -3,7 +3,7 @@ const sequelize = require('./sequelizeDB')
 async function dbConnect(){
     try { 
         await sequelize.authenticate()
-        .then(()=> console.log('Connection DB has been established successfully.'))
+        .then(()=> console.log('Connection sequelize DB has been established successfully.'))
         .catch((e)=> console.log('Unable to :', e))
     } catch (error) {
         console.log('Unable to connect to the database', error)

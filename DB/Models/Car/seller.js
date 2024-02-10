@@ -1,9 +1,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
+
 const Seller = sequelize.define('Seller',{
     
-    seller_id:{
+    id:{
         type: DataTypes.INTEGER(11),
         primaryKey: true,
         autoIncrement: true
@@ -32,9 +33,16 @@ const Seller = sequelize.define('Seller',{
         type: DataTypes.INTEGER(10),
         allowNull: false
     },
+    // car:{
+    //     type: DataTypes.INTEGER,
+    //     defaultValue:0,
+    //     allowNull:false
+    // }
 },{
     paranoid: true
 });
+
+Seller.sync()
 
 module.exports = Seller
 // console.log(Seller === sequelize.models.Seller);

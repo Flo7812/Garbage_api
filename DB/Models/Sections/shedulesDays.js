@@ -1,32 +1,30 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
+// const ShedulesTable = require('./shedulesTable');
 
-const Section = sequelize.define('Section',{
+const ShedulesDays = sequelize.define('Shedules_Days',{
     
     id:{
         type: DataTypes.INTEGER(11),
         primaryKey: true,
         autoIncrement: true
     },
-    title:{
+    Days:{
+        type: DataTypes.STRING,
+        defaultValue: ''
+    },
+    shedules:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    content:{
-        type: DataTypes.TEXT,
-        defaultValue: ''
-    },
-    img:{
-        type: DataTypes.BLOB,
-        
-    },
     position:{
         type: DataTypes.INTEGER(2),
-
     },
 },{
     paranoid: true
 });
 
-module.exports = Section
-// console.log(Section === sequelize.models.Section);
+// ShedulesDays.belongsTo(ShedulesTable)
+
+module.exports = ShedulesDays
+// console.log(ShedulesDays === sequelize.models.ShedulesDays);
