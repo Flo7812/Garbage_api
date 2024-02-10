@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../sequelizeDB');
+const sequelize = require('../../sequelizeDB');
 
 const Section = sequelize.define('Section',{
     
@@ -8,7 +8,7 @@ const Section = sequelize.define('Section',{
         primaryKey: true,
         autoIncrement: true
     },
-    Title:{
+    title:{
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -29,4 +29,4 @@ const Section = sequelize.define('Section',{
 });
 
 module.exports = Section
-console.log(Section === sequelize.models.Section);
+// console.log(Section === sequelize.models.Section);

@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../sequelizeDB');
+const sequelize = require('../../sequelizeDB');
 
 const Car = sequelize.define('Car',{
 
@@ -40,4 +40,4 @@ const Car = sequelize.define('Car',{
 },{paranoid: true})
 
 module.exports = Car
-console.log(Car === sequelize.models.Car);
+// console.log(Car === sequelize.models.Car);

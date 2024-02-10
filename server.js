@@ -1,13 +1,16 @@
+require('dotenv')
 const express = require('express')
 const cors = require('cors')
-require('./DBconnect')
+// require('./DB/DBconnect')
+
+const PORT = process.env.PORT || 1998
 
 const api = express()
 api.use(cors());
 api.use(express.json());
 
-api.listen(process.env.SERVER_PORT,()=>{
-        console.log(`Server running on PORT: ${process.env.SERVER_PORT} connected`);
+api.listen(PORT,()=>{
+        console.log(`Server running on PORT: ${PORT} connected`);
     })
 
 api.get('/', (req, res)=>{

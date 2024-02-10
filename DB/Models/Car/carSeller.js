@@ -1,25 +1,20 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../sequelizeDB');
+const sequelize = require('../../sequelizeDB');
 
-const User = sequelize.define('User',{
+const Seller = sequelize.define('Seller',{
     
-    user_id:{
+    seller_id:{
         type: DataTypes.INTEGER(11),
         primaryKey: true,
         autoIncrement: true
     },
-    lastName:{
+    last_name:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    firstName:{
+    first_name:{
         type: DataTypes.STRING,
         allowNull: false    
-    },
-    pseudo:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
     },
     email:{
         type: DataTypes.STRING,
@@ -29,25 +24,17 @@ const User = sequelize.define('User',{
         },
         unique: true
     },
-    date_of_birth:{
-        type: DataTypes.DATE,
-        allowNull: false
-    },
     address:{
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         allowNull: false
     },
     phone:{
         type: DataTypes.INTEGER(10),
         allowNull: false
     },
-    password:{
-        type: DataTypes.STRING(128),
-        allowNull: false
-    },
 },{
     paranoid: true
 });
 
-module.exports = User
-console.log(User === sequelize.models.User);
+module.exports = Seller
+// console.log(Seller === sequelize.models.Seller);
