@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
-// const ShedulesDays = require('./shedulesDays');
+
 
 const ShedulesTable = sequelize.define('Shedules_Table',{
     
@@ -14,7 +14,7 @@ const ShedulesTable = sequelize.define('Shedules_Table',{
         defaultValue: 'Horaires',
         allowNull: false
     },
-    description:{
+    modelWeek:{
         type: DataTypes.TEXT,
         defaultValue: ''
     }
@@ -22,7 +22,7 @@ const ShedulesTable = sequelize.define('Shedules_Table',{
     paranoid: true
 });
 
-// ShedulesTable.hasMany(ShedulesDays)
+
 
 module.exports = ShedulesTable
 // console.log(ShedulesTable === sequelize.models.ShedulesTable);

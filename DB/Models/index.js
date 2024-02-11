@@ -11,7 +11,7 @@ const Section = require('./Sections/section')
 const ShedulesTable = require('./Sections/shedulesTable')
 const ShedulesDays = require('./Sections/shedulesDays')
 
-const  DBmodels = {
+module.exports =  DBModels = {
         User,
         UserRole,
         Car,
@@ -23,9 +23,8 @@ const  DBmodels = {
         TestimonyStatus,
         Section,
         ShedulesTable,
-        ShedulesDays,
+        ShedulesDays
+        }
 
-}
 
 
-module.exports = DBmodels

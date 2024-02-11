@@ -16,7 +16,7 @@ async function initDB(){
         //     .then(console.log('connection with associations OK'))
         //     .catch((e)=> console.log('Unable to associate',e)) 
     } catch (error) {
-        console.log('fatal error on processus:', e);
+        console.log('fatal error on processus:', error);
     }
 }
 

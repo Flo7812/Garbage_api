@@ -21,10 +21,11 @@ async function initDBServer(){
                 DROP USER IF EXISTS 'admin'@'%';
                 DROP USER IF EXISTS 'employee'@'%';
                 DROP DATABASE IF EXISTS sequelize_test;
-                CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '';
+                CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY ''; 
+                GRANT ALL PRIVILEGES ON *.* TO "root"@"%" IDENTIFIED BY '' WITH GRANT OPTION;
                 SHOW DATABASES;
                 SELECT user, host FROM mysql.user;`)
-                console.log('database and users destroyed', query1[4], query1[5] )
+                console.log('database and users destroyed', query1[5], query1[6] )
 
         const [query2] = await myDb.query(`
                 CREATE USER IF NOT EXISTS 'admin'@'%' IDENTIFIED BY 'admin123';

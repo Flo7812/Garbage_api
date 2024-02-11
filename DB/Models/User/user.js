@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
+
 const User = sequelize.define('User',{
     
     id:{
@@ -38,16 +39,22 @@ const User = sequelize.define('User',{
         allowNull: false
     },
     phone:{
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.INTEGER(10).ZEROFILL,
         allowNull: false
     },
     password:{
         type: DataTypes.STRING(128),
         allowNull: false
     },
+    role:{
+        type: DataTypes.TINYINT, 
+        allowNull: false
+    }
 },{
     paranoid: true
 });
+
+// User.sync()
 
 module.exports = User
 // console.log(User === sequelize.models.User);

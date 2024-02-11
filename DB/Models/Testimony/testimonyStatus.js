@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
 
+
 const TestimonyStatus = sequelize.define('Testimony_Status',{
 
     id:{
@@ -10,21 +11,20 @@ const TestimonyStatus = sequelize.define('Testimony_Status',{
         autoIncrement:true,
         allowNull: false,
     },
-    validatedStatus:{
+    ValidateStatus:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
     },
     isValidated:{
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        unique: true
     }
 },{
     timestamps: false,
     freezeTableName: true
 })
 
+// TestimonyStatus.sync()
 
 module.exports = TestimonyStatus
 // console.log(TestimonyStatus === sequelize.models.TestimonyStatus);

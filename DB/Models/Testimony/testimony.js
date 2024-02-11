@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 
+
 const Testimony = sequelize.define('Testimony',{
     
     id:{
@@ -16,23 +17,32 @@ const Testimony = sequelize.define('Testimony',{
         type: DataTypes.STRING,
         allowNull: false    
     },
+    author_email:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            isEmail: true
+        },
+        unique: true,
+    },
     content:{
         type: DataTypes.TEXT,
-        defaultValue: '',
         allowNull: false
     },
-    isValidated:{
+    status:{
         type: DataTypes.TINYINT,
-        allowNull: false,    
+        defaultValue: 2, 
+        allowNull: false   
     },
     validator:{
         type: DataTypes.INTEGER(11),
-        allowNull: false,
     },
 },{
     paranoid: true,
     tableName: 'testimonials'
 });
+
+// Testimony.sync()
 
 module.exports = Testimony
 // console.log(Testimony === sequelize.models.Testimony);

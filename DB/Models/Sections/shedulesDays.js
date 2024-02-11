@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
-// const ShedulesTable = require('./shedulesTable');
+
 
 const ShedulesDays = sequelize.define('Shedules_Days',{
     
@@ -24,7 +24,7 @@ const ShedulesDays = sequelize.define('Shedules_Days',{
     paranoid: true
 });
 
-// ShedulesDays.belongsTo(ShedulesTable)
+
 
 module.exports = ShedulesDays
 // console.log(ShedulesDays === sequelize.models.ShedulesDays);

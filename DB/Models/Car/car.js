@@ -38,14 +38,13 @@ const Car = sequelize.define('Car',{
         type: DataTypes.TEXT,
         deaultValue: ''
     },
-    // seller:{
-    //     type: DataTypes.INTEGER(11),
-    //     allowNull: false
-    // }
+    seller:{
+        type: DataTypes.INTEGER(11),
+        allowNull: false
+    }
 },{paranoid: true})
 
-Car.sync()
-
+// Car.sync()
 
 module.exports = Car
 // console.log(Car === sequelize.models.Car);

@@ -42,7 +42,7 @@ const Seller = sequelize.define('Seller',{
     paranoid: true
 });
 
-Seller.sync()
+// Seller.sync()
 
 module.exports = Seller
 // console.log(Seller === sequelize.models.Seller);
