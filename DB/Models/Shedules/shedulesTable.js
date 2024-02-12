@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
 
 const ShedulesTable = sequelize.define('Shedules_Table',{

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../sequelizeDB');
 const Car = require('./car');
 
-const Image = sequelize.define('Image',{
+const Image = sequelize.define('car_image',{
 
     id:{
         type: DataTypes.INTEGER(11),

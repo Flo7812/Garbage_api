@@ -18,9 +18,9 @@ async function initDBServer(){
             .catch(error => console.log(error))
 
         const [query1] = await myDb.query(`
-                DROP USER IF EXISTS 'admin'@'%';
-                DROP USER IF EXISTS 'employee'@'%';
-                DROP DATABASE IF EXISTS sequelize_test;
+                DROP USER IF EXISTS '${process.env.GVPA_DB_USER}'@'%';
+                DROP USER IF EXISTS '${process.env.GVPE_DB_USER}'@'%';
+                DROP DATABASE IF EXISTS ${process.env.GVP_DB};
                 CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY ''; 
                 GRANT ALL PRIVILEGES ON *.* TO "root"@"%" IDENTIFIED BY '' WITH GRANT OPTION;
                 SHOW DATABASES;
@@ -28,13 +28,13 @@ async function initDBServer(){
                 console.log('database and users destroyed', query1[5], query1[6] )
 
         const [query2] = await myDb.query(`
-                CREATE USER IF NOT EXISTS 'admin'@'%' IDENTIFIED BY 'admin123';
+                CREATE USER IF NOT EXISTS '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}';
                 SELECT user, host FROM mysql.user;
-                SHOW GRANTS FOR 'admin'@'%';
-                GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' IDENTIFIED BY 'admin123' WITH GRANT OPTION;
-                SHOW GRANTS FOR 'admin'@'%';
+                SHOW GRANTS FOR '${process.env.GVPA_DB_USER}'@'%';
+                GRANT ALL PRIVILEGES ON *.* TO '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}' WITH GRANT OPTION;
+                SHOW GRANTS FOR '${process.env.GVPA_DB_USER}'@'%';
                 `)
-                console.log('USER "admin"@"%" created and GRANT', query2[1], query2[2], query2[4])
+                console.log(`USER "${process.env.GVPA_DB_USER}"@"%" created and GRANT'`, query2[1], query2[2], query2[4])
 
         await myDb.end()
             .then(console.log(`${myDb.config.user} disconnected`))
@@ -45,8 +45,8 @@ async function initDBServer(){
 
     const sequelizeTest = await mysql.createConnection({
             host: process.env.HOST,
-            user: process.env.SDB_USER,
-            password: process.env.SDB_PASSWORD,
+            user: process.env.GVPA_DB_USER,
+            password: process.env.GVPA_DB_PASSWORD,
             database: process.env.DB,
             multipleStatements: true,
             })
@@ -55,16 +55,16 @@ async function initDBServer(){
             .then(console.log(`connection successful with USER ${sequelizeTest.config.user} `))
             .catch(error => console.log(error))
         const [query3] = await sequelizeTest.query(`
-                CREATE DATABASE IF NOT EXISTS sequelize_test;
+                CREATE DATABASE IF NOT EXISTS ${process.env.GVP_DB};
                 SHOW DATABASES;
                 DROP USER IF EXISTS 'root'@'%';
-                CREATE USER IF NOT EXISTS 'employee'@'%' IDENTIFIED BY 'e123';
+                CREATE USER IF NOT EXISTS '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
                 SELECT user, host FROM mysql.user;
-                SHOW GRANTS FOR 'employee'@'%';
-                GRANT SELECT, CREATE, DROP, ALTER, INDEX ON sequelize_test.* TO 'employee'@'%' IDENTIFIED BY 'e123';
-                SHOW GRANTS FOR 'employee'@'%';
+                SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
+                GRANT SELECT, CREATE, DROP, ALTER, INDEX ON ${process.env.GVP_DB}.* TO '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
+                SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
                 SELECT user, host FROM mysql.user;`)
-                console.log('DATABASE sequelize_test and USER "employee"@"%" created and GRANT, "root"@"%" destroyed',query3[1], query3[4], query3[5], query3[7])
+                console.log(`DATABASE ${process.env.GVP_DB} and USER "${process.env.GVPE_DB_USER}"@"%" created and GRANT, "root"@"%" destroyed'`,query3[1], query3[4], query3[5], query3[7])
         await sequelizeTest.end() 
             .then(console.log(`${sequelizeTest.config.user} disconnected`))
             .catch(error => console.log(error))

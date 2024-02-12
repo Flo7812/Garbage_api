@@ -1,11 +1,11 @@
 
-const {Seller, Car, User, UserRole, Testimony, TestimonyStatus} = require('./index')
+const {Car, Seller, Brand, Model, Motor, User, UserRole, Testimony, TestimonyStatus} = require('./index')
 
 
 
 async function makeAssociations() {
 
-    console.log("starting  associations");
+    console.log("connect associations OK : starting  associations...");
 
     try {
         Car.belongsTo(Seller,{
@@ -13,6 +13,36 @@ async function makeAssociations() {
             foreignKey:'seller', 
         })
         Seller.hasMany(Car, {foreignKey: 'seller'})
+/*         Car.belongsTo(User,{
+            onDelete: 'NO ACTION',
+            onUpdate: 'CASCADE',
+            foreignKey:'createdBy', 
+        })
+        User.hasMany(Car, {foreignKey: 'createdBy'})
+        Car.belongsTo(Seller,{
+            onDelete: 'NO ACTION',
+            onUpdate: 'CASCADE',
+            foreignKey:'deletedBy', 
+        })
+        Seller.hasMany(Car, {foreignKey: 'deletedBy'}) */
+
+        Car.belongsTo(Brand,{
+            onDelete: 'CASCADE',
+            foreignKey:'brand', 
+        })
+        Brand.hasMany(Car, {foreignKey: 'brand'})
+
+        Car.belongsTo(Model,{
+            onDelete: 'CASCADE',
+            foreignKey:'model', 
+        })
+        Model.hasMany(Car, {foreignKey: 'model'})
+
+        Car.belongsTo(Motor,{
+            onDelete: 'CASCADE',
+            foreignKey:'motor', 
+        })
+        Motor.hasMany(Car, {foreignKey: 'motor'})
 
         User.belongsTo(UserRole,{foreignKey: 'role'})
         UserRole.hasMany(User,{foreignKey:'role'})
@@ -31,7 +61,7 @@ async function makeAssociations() {
         })
         TestimonyStatus.hasMany(Testimony, {foreignKey:'status'})
 
-        console.log('associations completed');
+
     } catch (error) {
         console.log('error associations  :', error )
     }

@@ -1,5 +1,6 @@
-require('dotenv').config({path:'../../.env'})
-const sequelize = require('../sequelizeDB')
+// require('dotenv').config({path:'../../.env'})
+const GVPAsequelize = require('../GVPAsequelize')
+
 
 async function initDB(){
     try {
@@ -12,9 +13,6 @@ async function initDB(){
         await require('./initDBTables')
             .then(console.log('connection with initDBTables OK'))
             .catch((e)=>console.log('unable to connect initDBtables',e))
-        // await require('../Models/associations')
-        //     .then(console.log('connection with associations OK'))
-        //     .catch((e)=> console.log('Unable to associate',e)) 
     } catch (error) {
         console.log('fatal error on processus:', error);
     }
@@ -23,7 +21,7 @@ async function initDB(){
 initDB()
     .then(console.log('Processus ok!!'))
     .then(()=>{
-        sequelize.close()
+        GVPAsequelize.close()
             .then(()=> console.log('Connection closed'))
             .catch((e)=> console.log('Unable to disconnect', e))
     })

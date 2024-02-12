@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
 
-const Seller = sequelize.define('Seller',{
+const Seller = sequelize.define('car_seller',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -25,19 +25,14 @@ const Seller = sequelize.define('Seller',{
         },
         unique: true
     },
+    phone:{
+        type: DataTypes.INTEGER(10).ZEROFILL,
+        allowNull: false
+    },
     address:{
         type: DataTypes.STRING,
         allowNull: false
-    },
-    phone:{
-        type: DataTypes.INTEGER(10),
-        allowNull: false
-    },
-    // car:{
-    //     type: DataTypes.INTEGER,
-    //     defaultValue:0,
-    //     allowNull:false
-    // }
+    }
 },{
     paranoid: true
 });

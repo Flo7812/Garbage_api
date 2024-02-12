@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
 
 const Testimony = sequelize.define('Testimony',{
@@ -37,6 +37,9 @@ const Testimony = sequelize.define('Testimony',{
     validator:{
         type: DataTypes.INTEGER(11),
     },
+    deletedBy:{
+        type: DataTypes.INTEGER(11),
+    }
 },{
     paranoid: true,
     tableName: 'testimonials'

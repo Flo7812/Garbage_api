@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
-const Brand = sequelize.define('Brand',{
+const Brand = sequelize.define('car_brand',{
 
     id:{
         type: DataTypes.INTEGER(11),

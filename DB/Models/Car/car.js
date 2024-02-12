@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
 
 const Car = sequelize.define('Car',{
@@ -10,15 +10,15 @@ const Car = sequelize.define('Car',{
         primaryKey: true
     },
     brand:{
-        type: DataTypes.TINYINT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     model:{
-        type: DataTypes.TINYINT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     motor:{
-        type: DataTypes.TINYINT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     kilometers:{
@@ -26,7 +26,7 @@ const Car = sequelize.define('Car',{
         allowNull: false
     },
     initial_registration:{
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     img:{
@@ -41,6 +41,13 @@ const Car = sequelize.define('Car',{
     seller:{
         type: DataTypes.INTEGER(11),
         allowNull: false
+    },
+    createdBy:{
+        type: DataTypes.INTEGER(11),
+        // allowNull: false
+    },
+    deletedBy:{
+        type: DataTypes.INTEGER(11),
     }
 },{paranoid: true})
 

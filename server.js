@@ -1,13 +1,18 @@
-require('dotenv')
+// require('dote nv').config() // = {path:'../API/.env'} or {path:'./.env'} // packagejson = -r dotenv/config
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
-// require('./DB/DBconnect')
+require('./DB/DBconnect')
+
 
 const PORT = process.env.PORT || 1998
 
 const api = express()
+api.use(bodyParser.json());
+api.use(bodyParser.urlencoded({ extended: true }));
 api.use(cors());
-api.use(express.json());
+
+const user_router = require('./Routes/users')
 
 api.listen(PORT,()=>{
         console.log(`Server running on PORT: ${PORT} connected`);
@@ -15,6 +20,12 @@ api.listen(PORT,()=>{
 
 api.get('/', (req, res)=>{
     res.status(200).send('Server Express - Sequelize connected!')
+})
+
+api.use('/user',user_router)
+
+api.get('/json', (req, res)=>{
+    res.status(200).json({reponse :'ceci est une reponse'})
 })
 api.get('*',(req, res)=>{
     res.status(404).send('Nothing to do here!')

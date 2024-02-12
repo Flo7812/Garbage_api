@@ -1,11 +1,10 @@
 // require('dotenv').config({path: '../.env'})
 const {Sequelize} = require('sequelize');
 
-//using DB has already created
-const sequelize = new Sequelize(process.env.SDB, process.env.SDB_USER,process.env.SDB_PASSWORD,{
+const GVPAsequelize = new Sequelize(process.env.GVP_DB, process.env.GVPA_DB_USER, process.env.GVPA_DB_PASSWORD,{
     host: process.env.HOST,
     dialect: 'mysql',
     logging: false
 });
 
-module.exports = sequelize
+module.exports = GVPAsequelize

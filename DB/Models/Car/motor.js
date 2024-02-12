@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
-const Motor = sequelize.define('Motor',{
+const Motor = sequelize.define('car_motor',{
 
     id:{
         type: DataTypes.INTEGER(11),
@@ -9,7 +9,7 @@ const Motor = sequelize.define('Motor',{
         primaryKey: true
     },
     type:{
-        type: DataTypes.TINYINT,
+        type: DataTypes.STRING,
         allowNull: false
     },
     description:{

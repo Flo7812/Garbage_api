@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
-const Model = sequelize.define('Model',{
+const Model = sequelize.define('car_model',{
 
     id:{
         type: DataTypes.INTEGER(11),
@@ -9,12 +9,12 @@ const Model = sequelize.define('Model',{
         primaryKey: true
     },
     name:{
-        type: DataTypes.TINYINT,
+        type: DataTypes.STRING,
         allowNull: false
     },
-    model:{
-        type: DataTypes.TINYINT,
-        allowNull: false
+    serie:{
+        type: DataTypes.STRING,
+        defaultValue:''
     },  
     description:{
         type: DataTypes.TEXT,

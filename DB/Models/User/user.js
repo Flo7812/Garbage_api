@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
 
 const User = sequelize.define('User',{
@@ -31,7 +31,7 @@ const User = sequelize.define('User',{
         unique: true
     },
     date_of_birth:{
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     address:{
@@ -48,6 +48,7 @@ const User = sequelize.define('User',{
     },
     role:{
         type: DataTypes.TINYINT, 
+        defaultValue: 2,
         allowNull: false
     }
 },{

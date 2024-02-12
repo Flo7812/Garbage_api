@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../sequelizeDB');
+const sequelize = require('../../GVPAsequelize');
 
-const Section = sequelize.define('Section',{
+const MainSection = sequelize.define('section_main',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -25,8 +25,9 @@ const Section = sequelize.define('Section',{
 
     },
 },{
-    paranoid: true
+    paranoid: true,
+    freezeTableName: true
 });
 
-module.exports = Section
+module.exports = MainSection
 // console.log(Section === sequelize.models.Section);
