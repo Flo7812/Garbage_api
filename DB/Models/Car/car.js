@@ -29,11 +29,6 @@ const Car = sequelize.define('Car',{
         type: DataTypes.DATEONLY,
         allowNull: false
     },
-    img:{
-        type: DataTypes.BLOB,
-        defaultValue: '',
-        // allowNull: false
-    },
     description:{
         type: DataTypes.TEXT,
         deaultValue: ''
@@ -42,9 +37,14 @@ const Car = sequelize.define('Car',{
         type: DataTypes.INTEGER(11),
         allowNull: false
     },
+    img:{
+        type: DataTypes.BLOB,
+        defaultValue: '',
+        // allowNull: false
+    },
     createdBy:{
         type: DataTypes.INTEGER(11),
-        // allowNull: false
+        allowNull: false
     },
     deletedBy:{
         type: DataTypes.INTEGER(11),

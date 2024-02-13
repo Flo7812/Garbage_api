@@ -7,4 +7,5 @@ const GVPAsequelize = new Sequelize(process.env.GVP_DB, process.env.GVPA_DB_USER
     logging: false
 });
 
+
 module.exports = GVPAsequelize

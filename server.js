@@ -13,6 +13,7 @@ api.use(bodyParser.urlencoded({ extended: true }));
 api.use(cors());
 
 const user_router = require('./Routes/users')
+const car_router = require('./Routes/cars')
 
 api.listen(PORT,()=>{
         console.log(`Server running on PORT: ${PORT} connected`);
@@ -23,6 +24,7 @@ api.get('/', (req, res)=>{
 })
 
 api.use('/user',user_router)
+api.use('/car',car_router)
 
 api.get('/json', (req, res)=>{
     res.status(200).json({reponse :'ceci est une reponse'})

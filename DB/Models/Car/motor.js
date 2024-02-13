@@ -14,7 +14,8 @@ const Motor = sequelize.define('car_motor',{
     },
     description:{
         type: DataTypes.TEXT,
-        deaultValue: ''
+        deaultValue: '',
+        allowNull: false
     }
 },{paranoid: true})
 

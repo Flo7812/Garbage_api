@@ -1,19 +1,19 @@
 const GVPAsequelize = require('../GVPAsequelize')
 const DBmodels = require('../Models/index')
 
-
-
 async function initDBTables(){
 
     try {
 
         await require('../Models/associations')
-            .then(console.log('associations completed'))
+            .then(console.log('access with initDBTables OK'))
             .catch((e)=>console.log('unable to connect associations', e))
+        await GVPAsequelize.authenticate()
+            .then(()=> console.log('Connection DB has been established successfully.'))
+            .catch((e)=> console.log('Unable to authenticate :', e))
         await GVPAsequelize.sync({force: true})
-            .then(console.log('Sequelize tables and associations synchronised :', DBmodels))
+            .then(console.log('Tables and associations synchronised :', DBmodels))
             .catch((e)=> console.log('Synchronisation Tables error :', e))
-
         await DBmodels.UserRole.bulkCreate([
             {role: 'admin'},
             {role: 'employee'}
@@ -189,7 +189,8 @@ async function initDBTables(){
                     kilometers: '90400',
                     initial_registration: '2009-06-09',
                     description: 'Une super voiture!',
-                    seller: '1'
+                    seller: '1',
+                    createdBy:'2'
                 },
                 {
                     brand: '2',
@@ -198,7 +199,8 @@ async function initDBTables(){
                     kilometers: '32330',
                     initial_registration: '2021-11-29',
                     description: 'Ideale pour des petits trajets.',
-                    seller: '1'
+                    seller: '1',
+                    createdBy:'2'
                 },
                 {
                     brand: '3',
@@ -207,7 +209,8 @@ async function initDBTables(){
                     kilometers: '69000',
                     initial_registration: '2013-09-30',
                     description: 'Un classique pour tout les jours et les vacances!!',
-                    seller: '3'
+                    seller: '3',
+                    createdBy:'2'
                 },
                 {
                     brand: '4',
@@ -216,7 +219,8 @@ async function initDBTables(){
                     kilometers: '105480',
                     initial_registration: '2003-04-01',
                     description: 'Fiable!!',
-                    seller: '2'
+                    seller: '2',
+                    createdBy:'2'
                 },
                 ])
                 .then((res) => res.forEach((data) =>
@@ -323,4 +327,9 @@ async function initDBTables(){
 }
 
 module.exports = initDBTables()
+    .then(()=>{
+        GVPAsequelize.close()
+            .then(()=> console.log('Connection closed'))
+            .catch((e)=> console.log('Unable to disconnect', e))
+    })
 

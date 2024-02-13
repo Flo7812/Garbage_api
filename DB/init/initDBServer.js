@@ -21,11 +21,10 @@ async function initDBServer(){
                 DROP USER IF EXISTS '${process.env.GVPA_DB_USER}'@'%';
                 DROP USER IF EXISTS '${process.env.GVPE_DB_USER}'@'%';
                 DROP DATABASE IF EXISTS ${process.env.GVP_DB};
-                CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY ''; 
                 GRANT ALL PRIVILEGES ON *.* TO "root"@"%" IDENTIFIED BY '' WITH GRANT OPTION;
                 SHOW DATABASES;
                 SELECT user, host FROM mysql.user;`)
-                console.log('database and users destroyed', query1[5], query1[6] )
+                console.log('database and users destroyed', query1[4], query1[5] )
 
         const [query2] = await myDb.query(`
                 CREATE USER IF NOT EXISTS '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}';
@@ -43,7 +42,7 @@ async function initDBServer(){
         console.log(error)
     }
 
-    const sequelizeTest = await mysql.createConnection({
+    const GarageVParrot = await mysql.createConnection({
             host: process.env.HOST,
             user: process.env.GVPA_DB_USER,
             password: process.env.GVPA_DB_PASSWORD,
@@ -51,10 +50,10 @@ async function initDBServer(){
             multipleStatements: true,
             })
     try {
-        await sequelizeTest.connect()
-            .then(console.log(`connection successful with USER ${sequelizeTest.config.user} `))
+        await GarageVParrot.connect()
+            .then(console.log(`connection successful with USER ${GarageVParrot.config.user} `))
             .catch(error => console.log(error))
-        const [query3] = await sequelizeTest.query(`
+        const [query3] = await GarageVParrot.query(`
                 CREATE DATABASE IF NOT EXISTS ${process.env.GVP_DB};
                 SHOW DATABASES;
                 DROP USER IF EXISTS 'root'@'%';
@@ -65,8 +64,8 @@ async function initDBServer(){
                 SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
                 SELECT user, host FROM mysql.user;`)
                 console.log(`DATABASE ${process.env.GVP_DB} and USER "${process.env.GVPE_DB_USER}"@"%" created and GRANT, "root"@"%" destroyed'`,query3[1], query3[4], query3[5], query3[7])
-        await sequelizeTest.end() 
-            .then(console.log(`${sequelizeTest.config.user} disconnected`))
+        await GarageVParrot.end() 
+            .then(console.log(`${GarageVParrot.config.user} disconnected`))
             .catch(error => console.log(error))
 
     } catch (error) {
