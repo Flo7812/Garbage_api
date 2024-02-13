@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../GVPAsequelize');
 
-const Section = sequelize.define('section_service',{
+const ServicesSection = sequelize.define('section_service',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -28,5 +28,5 @@ const Section = sequelize.define('section_service',{
     paranoid: true
 });
 
-module.exports = Section
+module.exports = ServicesSection
 // console.log(Section === sequelize.models.Section);

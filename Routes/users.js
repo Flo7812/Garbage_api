@@ -1,17 +1,16 @@
-// require('dotenv').config({path:'../.env'}) // packagejson = -r dotenv/config
 const express = require('express')
 const bcrypt  = require('bcrypt')
-const User = require('../DB/Models/User/user')
+const { User } = require('../DB/Models/index')
 let router = express.Router()
 
-
+// get all users
 router.get('', (req, res)=>{
     User.findAll()
         .then(users => res.json({data: users}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-})
+});
 
-
+// get an user
 router.get('/:id', (req, res)=>{
     let userId = parseInt(req.params.id)
     console.log(userId);
@@ -25,22 +24,10 @@ router.get('/:id', (req, res)=>{
         }
         console.log({data : user.dataValues});
         return res.json({data: user})
-    })
-    .catch(e => res.status(500).json({message: "Error Database", error: e}))
-/*     if(!userId){
-        return res.status(400).json({message: "id parameter missing"})
-    }
-    User.findOne()
-    .then(user => {
-            if((user === null)){
-                return res.status(404).json({message: "user with this id doesn't exist"})
-            }
-            return res.json({data: user})
-        })
-    .catch(e => res.status(500).json({message: "Error Database", error: e})) */
-})
+    }).catch(e => res.status(500).json({message: "Error Database", error: e}))
+});
 
-//ajout 
+//add an user
 router.put('', (req, res)=>{
     let {last_name, first_name, username, email, date_of_birth, address, password} = req.body 
     if(!last_name || !first_name || !username || !email || !date_of_birth || !address || !password){
@@ -48,23 +35,9 @@ router.put('', (req, res)=>{
     }
     User.findOne({where : {email : email}, raw: true})
     .then(user => {
-        if(user !== null){
+        if(!!user){
             return res.status(409).json({message: `this user : ${user.last_name} ${user.first_name} already exists `})
         }
-        /* console.log(typeof process.env.BCRYPT_SALT);
-        bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT))
-        .then(salt => {
-            bcrypt.hash(password, salt)
-            .then(hash =>{
-                req.body.password = hash
-                console.log(req.body)
-                User.create(req.body)
-                    .then(user => res.json({message: 'user created', data: user}))
-                    .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
-            }).catch(e => res.status(500).json({message: "Hash process error", error: e}))
-        }).catch(e => res.status(500).json({message: "Salt process error", error: e}))
-    }).catch(e => res.status(500).json({message: "Error Database", error: e}))     
-})   */
         bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT) )
             .then( hash => {
                 req.body.password = hash
@@ -73,13 +46,11 @@ router.put('', (req, res)=>{
             User.create(req.body)
                 .then(user => res.json({message: 'user created', data: user}))
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
-            })
-            .catch(e => res.status(500).json({message: "Hash process error", error: e}))       
-    })
-    .catch(e => res.status(500).json({message: "Error Database", error: e}))
-})  
+            }).catch(e => res.status(500).json({message: "Hash process error", error: e}))       
+    }).catch(e => res.status(500).json({message: "Error Database", error: e}))
+});  
 
-//Modification 
+//Modify an user
 router.patch('/:id', (req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
@@ -96,10 +67,10 @@ router.patch('/:id', (req, res)=>{
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-})
+});
 
-//Suppression soft
-router.delete('/delete/:id', (req, res)=>{
+//soft delete an user
+router.delete('/:id', (req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -107,20 +78,21 @@ router.delete('/delete/:id', (req, res)=>{
     User.destroy({where: {id:userId}})
         .then(() => res.status(204).json({}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-})
+});
 
-//Retaurer
-router.post('/undelete/:id', (req, res) => {
+//restore a soft deleted user
+router.post('/:id', (req, res) => {
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
     }
     User.restore({where: {id: userId}})
-        .then((res.status(200).json({message: `User ${req.body.last_name} ${req.body.first_name}restored`})))
+        .then((res.status(200).json({message: `User id ${userId} restored`})))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-})
-// suppression definitive
-router.delete('/trashdelete/:id', (req, res)=>{
+});
+
+//trash delete an user
+router.delete('/trash/:id', (req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -128,6 +100,19 @@ router.delete('/trashdelete/:id', (req, res)=>{
     User.destroy({where: {id:userId}, force: true})
         .then(() => res.status(204).json({}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-})
+});
+
+// get deleted users /***in progress ***/
+router.get('/deleted', async (req, res) => {
+    /*   try {
+           // Trouver toutes les voitures soft deleted
+           const deletedCars = await Car.findAll({
+               where: { deletedAt: { [Op.ne]: null } } // Sélectionne les lignes avec deletedAt non nul (soft deleted)
+           });
+           res.json({ deletedCars });
+       } catch (error) {
+           res.status(500).json({ message: "Erreur de la base de données", error });
+       }*/
+}); 
 
 module.exports = router

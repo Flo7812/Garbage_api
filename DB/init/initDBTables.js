@@ -264,7 +264,7 @@ async function initDBTables(){
                         )
                 )).then(console.log('instances Testimonials OK'))
                 .catch((e)=> console.log('Unable to create instances of Table Testimonials', e))
-            await DBmodels.Section.bulkCreate([
+            await DBmodels.ServicesSection.bulkCreate([
                 {
                     title: 'Reparations',
                     content: 'Tout types de reparations',
@@ -284,7 +284,7 @@ async function initDBTables(){
                 .then((res) => res.forEach((data) =>
                     console.log(
                         data.dataValues,
-                        data instanceof DBmodels.Section,
+                        data instanceof DBmodels.ServicesSection,
                         )
                 )).then(console.log('instances Section OK'))
                 .catch((e)=> console.log('Unable to create instances of Table Section', e))
@@ -298,17 +298,17 @@ async function initDBTables(){
                 {
                     title: 'Services',
                     content: 'Nous effectuons des raparations, entretiens, carrosserie...',
-                    position:'1'
+                    position:'32'
                 },
                 {
                     title: 'Vente de vehicules',
                     content: 'De l\'occasion a bon prix fiable, controlé par nos soins.',
-                    position:'2'
+                    position:'3'
                 },
                 {
                     title: 'Offres d\'emplois',
                     content: 'Toujours a la recheche de nouveaux talents! contacter nous.',
-                    position:'3'
+                    position:'4'
                 }
                 ])
                 .then((res) => res.forEach((data) =>

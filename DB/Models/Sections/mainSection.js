@@ -22,6 +22,7 @@ const MainSection = sequelize.define('section_main',{
     },
     position:{
         type: DataTypes.INTEGER(2),
+        unique: true
 
     },
 },{

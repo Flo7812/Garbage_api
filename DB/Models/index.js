@@ -7,8 +7,8 @@ const Model = require('./Car/model')
 const Motor = require('./Car/motor')
 const Testimony = require('./Testimony/testimony')
 const TestimonyStatus = require('./Testimony/testimonyStatus')
-const Section = require('./Sections/sectionServices')
-const MainSection = require('./Sections/sectionMain')
+const ServicesSection = require('./Sections/servicesSection')
+const MainSection = require('./Sections/mainSection')
 const ShedulesTable = require('./Shedules/shedulesTable')
 const ShedulesDays = require('./Shedules/shedulesDays')
 
@@ -22,7 +22,7 @@ module.exports =  DBModels = {
         Motor,
         Testimony,
         TestimonyStatus,
-        Section,
+        ServicesSection,
         MainSection,
         ShedulesTable,
         ShedulesDays
