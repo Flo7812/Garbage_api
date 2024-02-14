@@ -20,20 +20,22 @@ async function initDBServer(){
         const [query1] = await myDb.query(`
                 DROP USER IF EXISTS '${process.env.GVPA_DB_USER}'@'%';
                 DROP USER IF EXISTS '${process.env.GVPE_DB_USER}'@'%';
+                DROP USER IF EXISTS '${process.env.GVPC_DB_USER}'@'%';
                 DROP DATABASE IF EXISTS ${process.env.GVP_DB};
-                GRANT ALL PRIVILEGES ON *.* TO "root"@"%" IDENTIFIED BY '' WITH GRANT OPTION;
                 SHOW DATABASES;
                 SELECT user, host FROM mysql.user;`)
-                console.log('database and users destroyed', query1[4], query1[5] )
+                console.log('database and users destroyed', query1[5], query1[6] )
 
         const [query2] = await myDb.query(`
+                CREATE USER IF NOT EXISTS '${process.env.GVPC_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPC_DB_PASSWORD}';
                 CREATE USER IF NOT EXISTS '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}';
+                GRANT SELECT ON ${process.env.GVP_DB}.* TO '${process.env.GVPC_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPC_DB_PASSWORD}';
                 SELECT user, host FROM mysql.user;
                 SHOW GRANTS FOR '${process.env.GVPA_DB_USER}'@'%';
                 GRANT ALL PRIVILEGES ON *.* TO '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}' WITH GRANT OPTION;
                 SHOW GRANTS FOR '${process.env.GVPA_DB_USER}'@'%';
                 `)
-                console.log(`USER "${process.env.GVPA_DB_USER}"@"%" created and GRANT'`, query2[1], query2[2], query2[4])
+                console.log(`USER "${process.env.GVPA_DB_USER}"@"%" created and GRANT'`, query2[3], query2[4], query2[6])
 
         await myDb.end()
             .then(console.log(`${myDb.config.user} disconnected`))
@@ -60,7 +62,7 @@ async function initDBServer(){
                 CREATE USER IF NOT EXISTS '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
                 SELECT user, host FROM mysql.user;
                 SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
-                GRANT SELECT, CREATE, DROP, ALTER, INDEX ON ${process.env.GVP_DB}.* TO '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
+                GRANT SELECT, CREATE, DROP, ALTER ON ${process.env.GVP_DB}.* TO '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
                 SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
                 SELECT user, host FROM mysql.user;`)
                 console.log(`DATABASE ${process.env.GVP_DB} and USER "${process.env.GVPE_DB_USER}"@"%" created and GRANT, "root"@"%" destroyed'`,query3[1], query3[4], query3[5], query3[7])

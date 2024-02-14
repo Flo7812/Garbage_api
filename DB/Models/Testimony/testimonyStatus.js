@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../GVPAsequelize');
+const sequelize = require('../../connect/GVPAsequelize');
 
 
 

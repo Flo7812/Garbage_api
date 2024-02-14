@@ -1,4 +1,3 @@
-// require('dotenv').config({path: '../.env'})
 const {Sequelize} = require('sequelize');
 
 const GVPAsequelize = new Sequelize(process.env.GVP_DB, process.env.GVPA_DB_USER, process.env.GVPA_DB_PASSWORD,{

@@ -1,8 +1,9 @@
-const GVPAsequelize = require('../GVPAsequelize')
+const GVPAsequelize = require('../connect/GVPAsequelize')
 const DBmodels = require('../Models/index')
+const bcrypt = require('bcrypt')
+
 
 async function initDBTables(){
-
     try {
 
         await require('../Models/associations')
@@ -117,7 +118,8 @@ async function initDBTables(){
                         )
                 )).then(console.log('instances testimonyStatus OK'))
                 .catch((e)=> console.log('Unable to create instances of Table TestimonyStatus', e))
-
+            const vpPass =  await bcrypt.hash('vp123', parseInt(process.env.BCRYPT_SALT))
+            const ePass =  await bcrypt.hash('e123', parseInt(process.env.BCRYPT_SALT))
             await DBmodels.User.bulkCreate([
                 {
                     last_name: 'Parrot',
@@ -127,7 +129,7 @@ async function initDBTables(){
                     date_of_birth: '1970-01-31',
                     address: '12 rue de la voiture',
                     phone: '0607080910',
-                    password:'vp123',
+                    password: vpPass,
                     role: '1'
                 },
                 {
@@ -138,7 +140,7 @@ async function initDBTables(){
                     date_of_birth: '1980-12-31',
                     address: '3 rue du cochon',
                     phone: '0605040302',
-                    password:'e123',
+                    password: ePass,
                     role: '2'
                 },
                 ])

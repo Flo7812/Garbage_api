@@ -29,7 +29,7 @@ router.get('/:id', (req, res)=>{
 
 //add an user
 router.put('', (req, res)=>{
-    let {last_name, first_name, username, email, date_of_birth, address, password} = req.body 
+    const {last_name, first_name, username, email, date_of_birth, address, password} = req.body 
     if(!last_name || !first_name || !username || !email || !date_of_birth || !address || !password){
         return res.status(400).json({message: "data(s) missing"})
     }
