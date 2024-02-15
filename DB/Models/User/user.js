@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../connect/GVPAsequelize');
+const sequelize = require('../../../unUsed/GVPAsequelize');
 
 
 const User = sequelize.define('User',{
@@ -43,7 +43,7 @@ const User = sequelize.define('User',{
         allowNull: false
     },
     password:{
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(64),
         allowNull: false
     },
     role:{

@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../connect/GVPAsequelize');
+const sequelize = require('../../../unUsed/GVPAsequelize');
 
 const ServicesSection = sequelize.define('section_service',{
     

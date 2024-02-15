@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../connect/GVPAsequelize');
+const sequelize = require('../../../unUsed/GVPAsequelize');
 
 const Brand = sequelize.define('car_brand',{
 

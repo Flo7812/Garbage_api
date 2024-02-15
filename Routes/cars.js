@@ -2,6 +2,8 @@ const express = require('express')
 const { Car, Brand, Model, Motor} = require('../DB/Models/index')
 let router = express.Router()
 
+const jwtAuthGuard = require('../Middleware/in/jwtAuthGuard')
+
 //function to get brand, model and motor name from their own tables
 async function reqCarData(cars, res){
     const carsData = []
@@ -142,7 +144,7 @@ router.get('/motor/:id', async (req, res)=>{
 });
 
 //add a new car
-router.put('', (req, res)=>{
+router.put('', jwtAuthGuard, (req, res)=>{
     let {brand, model, motor, kilometers, initial_registration, seller, createdBy} = req.body 
     if(!brand || !model || !motor || !kilometers || !initial_registration || !seller || !createdBy){
         return res.status(400).json({message: "data(s) missing"})
@@ -160,7 +162,7 @@ router.put('', (req, res)=>{
 });  
 
 //modify a car
-router.patch('/:id', (req, res)=>{
+router.patch('/:id', jwtAuthGuard, (req, res)=>{
     let carId = parseInt(req.params.id)
     if(!carId){
         return res.status(400).json({message: "id parameter missing"})
@@ -179,7 +181,7 @@ router.patch('/:id', (req, res)=>{
 });
 
 //soft delete a car
-router.delete('/:id', async(req, res)=>{
+router.delete('/:id', jwtAuthGuard, async(req, res)=>{
     let carId = parseInt(req.params.id)
     if(!carId){
         return res.status(400).json({message: "id parameter missing"})
@@ -199,7 +201,7 @@ router.delete('/:id', async(req, res)=>{
 });
 
 //restore a soft deleted car
-router.post('/:id', async(req, res) => {
+router.post('/:id', jwtAuthGuard, async(req, res) => {
     let carId = parseInt(req.params.id)
     if(!carId){
         return res.status(400).json({message: "id parameter missing"})
@@ -224,7 +226,7 @@ router.post('/:id', async(req, res) => {
 });
 
 // trash delete a car
-router.delete('/trash/:id', async(req, res)=>{
+router.delete('/trash/:id', jwtAuthGuard, async(req, res)=>{
     let carId = parseInt(req.params.id)
     if(!carId){
         return res.status(400).json({message: "id parameter missing"})
@@ -241,7 +243,7 @@ router.delete('/trash/:id', async(req, res)=>{
 });
 
 // get deleted cars /***in progress ***/
-router.get('/deleted', async (req, res) => {
+router.get('/deleted', jwtAuthGuard, async (req, res) => {
  /*   try {
         // Trouver toutes les voitures soft deleted
         const deletedCars = await Car.findAll({

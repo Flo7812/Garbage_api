@@ -3,17 +3,19 @@ const bcrypt  = require('bcrypt')
 const { User } = require('../DB/Models/index')
 let router = express.Router()
 
+const jwtAuthGuard = require('../Middleware/in/jwtAuthGuard')
+
+
 // get all users
-router.get('', (req, res)=>{
+router.get('', jwtAuthGuard , async(req, res)=>{
     User.findAll()
         .then(users => res.json({data: users}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
 });
 
 // get an user
-router.get('/:id', (req, res)=>{
+router.get('/:id', jwtAuthGuard , (req, res)=>{
     let userId = parseInt(req.params.id)
-    console.log(userId);
     if(!userId){
         return res.status(400).json({message: "id parameter missing or not id"})
     }
@@ -28,7 +30,7 @@ router.get('/:id', (req, res)=>{
 });
 
 //add an user
-router.put('', (req, res)=>{
+router.put('',jwtAuthGuard, (req, res)=>{
     const {last_name, first_name, username, email, date_of_birth, address, password} = req.body 
     if(!last_name || !first_name || !username || !email || !date_of_birth || !address || !password){
         return res.status(400).json({message: "data(s) missing"})
@@ -41,17 +43,16 @@ router.put('', (req, res)=>{
         bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT) )
             .then( hash => {
                 req.body.password = hash
-                console.log(req.body);
         // Body control ... 
             User.create(req.body)
-                .then(user => res.json({message: 'user created', data: user}))
+                .then(user => res.json({message: 'user created', data: user, by: req.token.username }))
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
             }).catch(e => res.status(500).json({message: "Hash process error", error: e}))       
     }).catch(e => res.status(500).json({message: "Error Database", error: e}))
 });  
 
 //Modify an user
-router.patch('/:id', (req, res)=>{
+router.patch('/:id',jwtAuthGuard ,(req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -70,7 +71,7 @@ router.patch('/:id', (req, res)=>{
 });
 
 //soft delete an user
-router.delete('/:id', (req, res)=>{
+router.delete('/:id',jwtAuthGuard, (req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -81,7 +82,7 @@ router.delete('/:id', (req, res)=>{
 });
 
 //restore a soft deleted user
-router.post('/:id', (req, res) => {
+router.post('/:id',jwtAuthGuard, (req, res) => {
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -92,7 +93,7 @@ router.post('/:id', (req, res) => {
 });
 
 //trash delete an user
-router.delete('/trash/:id', (req, res)=>{
+router.delete('/trash/:id',jwtAuthGuard, (req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -103,7 +104,7 @@ router.delete('/trash/:id', (req, res)=>{
 });
 
 // get deleted users /***in progress ***/
-router.get('/deleted', async (req, res) => {
+router.get('/deleted',jwtAuthGuard, async (req, res) => {
     /*   try {
            // Trouver toutes les voitures soft deleted
            const deletedCars = await Car.findAll({

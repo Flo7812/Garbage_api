@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../connect/GVPAsequelize');
+const sequelize = require('../../../unUsed/GVPAsequelize');
 
 
 const ShedulesDays = sequelize.define('Shedules_Days',{

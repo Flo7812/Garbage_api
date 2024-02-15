@@ -2,6 +2,8 @@ const express = require('express')
 const { ServicesSection, MainSection } = require('../DB/Models');
 let router = express.Router()
 
+const jwtAuthGuard = require('../Middleware/in/jwtAuthGuard')
+
 //get all sections
 router.get('', async(req, res)=>{
     try {
@@ -55,7 +57,7 @@ router.get('/services-section', (req, res)=>{
 });
 
 //get a serviceSection by id
-router.get('/services-section/:id', (req, res)=>{
+router.get('/services-section/:id', jwtAuthGuard, (req, res)=>{
     let sSectionId = req.params.id
     if(!sSectionId){
         return res.status(400).json({message: 'missing id or not id'})
@@ -72,7 +74,7 @@ router.get('/services-section/:id', (req, res)=>{
 
 
 //add a Main Section
-router.put('/main-section', (req, res)=>{
+router.put('/main-section', jwtAuthGuard, (req, res)=>{
     let {title, content, img, position} = req.body 
     if(!title || !content ){
         return res.status(400).json({message: "Data(s) missing"})
@@ -90,7 +92,7 @@ router.put('/main-section', (req, res)=>{
 })
 
 //add a Service Section
-router.put('/services-section', (req, res)=>{
+router.put('/services-section', jwtAuthGuard, (req, res)=>{
     let {title, content, img, position} = req.body 
     if(!title || !content ){
         return res.status(400).json({message: "Data(s) missing"})
@@ -108,7 +110,7 @@ router.put('/services-section', (req, res)=>{
 })
 
 //Modify a main Section
-router.patch('/main-section/:id', (req, res)=>{
+router.patch('/main-section/:id', jwtAuthGuard, (req, res)=>{
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -127,7 +129,7 @@ router.patch('/main-section/:id', (req, res)=>{
 });
 
 //Modify a services Section
-router.patch('/services-section/:id', (req, res)=>{
+router.patch('/services-section/:id', jwtAuthGuard, (req, res)=>{
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -146,7 +148,7 @@ router.patch('/services-section/:id', (req, res)=>{
 });
 
 //soft delete a main section
-router.delete('/main-section/:id', (req, res)=>{
+router.delete('/main-section/:id', jwtAuthGuard, (req, res)=>{
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -157,7 +159,7 @@ router.delete('/main-section/:id', (req, res)=>{
 });
 
 //soft delete a services section
-router.delete('/services-section/:id', (req, res)=>{
+router.delete('/services-section/:id', jwtAuthGuard, (req, res)=>{
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -168,7 +170,7 @@ router.delete('/services-section/:id', (req, res)=>{
 });
 
 //restore a soft deleted main-section
-router.post('/main-section/:id', (req, res) => {
+router.post('/main-section/:id', jwtAuthGuard, (req, res) => {
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -179,7 +181,7 @@ router.post('/main-section/:id', (req, res) => {
 });
 
 //restore a soft deleted services-section
-router.post('/services-section/:id', (req, res) => {
+router.post('/services-section/:id', jwtAuthGuard, (req, res) => {
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -190,7 +192,7 @@ router.post('/services-section/:id', (req, res) => {
 });
 
 //trash delete a main section
-router.delete('/main-section/trash/:id', (req, res)=>{
+router.delete('/main-section/trash/:id', jwtAuthGuard, (req, res)=>{
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing"})
@@ -201,7 +203,7 @@ router.delete('/main-section/trash/:id', (req, res)=>{
 });
 
 //trash delete a services section
-router.delete('/services-section/trash/:id', (req, res)=>{
+router.delete('/services-section/trash/:id', jwtAuthGuard, (req, res)=>{
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing"})
@@ -212,7 +214,7 @@ router.delete('/services-section/trash/:id', (req, res)=>{
 });
 
 // get deleted sections /***in progress ***/
-router.get('/deleted', async (req, res) => {
+router.get('/deleted', jwtAuthGuard, async (req, res) => {
     /*   try {
            // Trouver toutes les voitures soft deleted
            const deletedCars = await Car.findAll({

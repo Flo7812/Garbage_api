@@ -2,8 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const authGuardDB = require('./DB/connect/authGuardDB')
-const connectDB = require('./DB/connect/connectDB')
+const DB = require('./DB/connectToDB')
 
 const PORT = process.env.PORT || 1998
 
@@ -13,7 +12,6 @@ api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(cors());
 
-connectDB(authGuardDB, 1)
 
 const user_router = require('./Routes/users')
 const car_router = require('./Routes/cars')
@@ -24,6 +22,7 @@ const auth_router = require('./Routes/auth')
 
 api.listen(PORT,()=>{
         console.log(`Server running on PORT: ${PORT} connected`);
+        DB()
 })
 
 api.get('/', (req, res)=>{
@@ -40,7 +39,7 @@ api.use('/testimony', testimony_router)
 api.use('/section', section_router)
 api.use('/shedules', shedules_router)
 
-api.use('/auth', auth_router)
+api.use('/login', auth_router)
 
 api.get('*',(req, res)=>{
     res.status(404).send('Nothing to do here!')

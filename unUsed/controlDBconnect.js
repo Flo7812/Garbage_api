@@ -1,20 +1,19 @@
 const GVPCsequelize = require('./GVPCsequelize')
 
-async function connectDB(cb, role){
+async function controltDBconnect(){
     try { 
-        require('../Models/index');
-        require('../Models/associations')
+        require('../DB/Models/index');
+        require('../DB/Models/associations')
         await GVPCsequelize.authenticate() 
             .then(()=> console.log('Connection controler success.'))
-            .catch((e)=> console.log('Unable to authenticate :', e))
+            .catch((e)=> console.log('Unable to authenticate controler:', e))
         // Sync to be used in development mode, doesn't work on oreignKey options...maybe for relations too..
         await GVPCsequelize.sync(/* {alter: true} */)
-            .then(()=> console.log('Synchronization DB success.'))
+            .then(()=> {console.log('Synchronization DB success.')})
             .catch((e)=> console.log('Unable to sync :', e))
-        await cb(role)
     } catch (error) {
-        console.log(error)
+        console.log('Error , unable to connect controler :',error)
     } 
 }
 
-module.exports = connectDB
+module.exports = controltDBconnect

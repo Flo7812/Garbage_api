@@ -2,6 +2,8 @@ const express = require('express')
 const { Testimony, TestimonyStatus } = require('../DB/Models');
 let router = express.Router()
 
+const jwtAuthGuard = require('../Middleware/in/jwtAuthGuard')
+
 //get all testimonials
 router.get('', async(req, res)=>{
     try{
@@ -40,7 +42,7 @@ router.get('/:id', (req, res)=>{
 });
 
 //add a testimony
-router.put('', (req, res)=>{
+router.put('', jwtAuthGuard, (req, res)=>{
     let {author_last_name, author_first_name, author_email, content, validator} = req.body 
     if(!author_last_name || !author_first_name || !author_email || !content){
         return res.status(400).json({message: "data(s) missing"})
@@ -58,7 +60,7 @@ router.put('', (req, res)=>{
 })
 
 //Modify a testimony
-router.patch('/:id', (req, res)=>{
+router.patch('/:id', jwtAuthGuard, (req, res)=>{
     let testimonyId = parseInt(req.params.id)
     if(!testimonyId){
         return res.status(400).json({message: "id parameter missing"})
@@ -77,7 +79,7 @@ router.patch('/:id', (req, res)=>{
 });
 
 //soft delete a testimony
-router.delete('/:id', async(req, res)=>{
+router.delete('/:id', jwtAuthGuard, async(req, res)=>{
     let testimonyId = parseInt(req.params.id)
     if(!testimonyId){
         return res.status(400).json({message: "id parameter missing"})
@@ -97,7 +99,7 @@ router.delete('/:id', async(req, res)=>{
 });
 
 //restore a soft deleted testimony 
-router.post('/:id', async(req, res) => {
+router.post('/:id', jwtAuthGuard, async(req, res) => {
     let testimonyId = parseInt(req.params.id)
     if(!testimonyId){
         return res.status(400).json({message: "id parameter missing"})
@@ -122,7 +124,7 @@ router.post('/:id', async(req, res) => {
 });
 
 //trash delete a testimony 
-router.delete('/trash/:id', async(req, res)=>{
+router.delete('/trash/:id', jwtAuthGuard, async(req, res)=>{
     let testimonyId = parseInt(req.params.id)
     if(!testimonyId){
         return res.status(400).json({message: "id parameter missing"})
@@ -138,7 +140,7 @@ router.delete('/trash/:id', async(req, res)=>{
         }).catch(e => res.status(500).json({message: "Error Database", error: e}))
 });
 // get deleted testimonials /***in progress ***/
-router.get('/deleted', async (req, res) => {
+router.get('/deleted', jwtAuthGuard, async (req, res) => {
     /*   try {
            // Trouver toutes les voitures soft deleted
            const deletedtestimonys = await testimony.findAll({
