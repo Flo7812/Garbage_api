@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../../unUsed/GVPAsequelize');
+const sequelize = require('../../init/GVPAsequelize');
 
 const MainSection = sequelize.define('section_main',{
     

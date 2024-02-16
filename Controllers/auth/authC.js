@@ -1,13 +1,10 @@
-const express = require('express')
-let router = express.Router()
+
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const User = require('../DB/Models/User/user')
-const authTime = require('../Middleware/in/authTime')
-const checkRoleDBconnect = require('../Middleware/out/checkRoleDBconnect')
+const User = require('../../DB/Models/User/user')
 
-// user login
-router.post('',authTime,checkRoleDBconnect, (req, res)=>{
+
+exports.login = (req, res) =>{
     const {email, password} = req.body
     if(!email || !password){
         return res.status(400).json({message: 'email or/and password missing'})
@@ -37,6 +34,4 @@ router.post('',authTime,checkRoleDBconnect, (req, res)=>{
                 .catch(e => res.status(500).json({message: 'Check logging failed', error: e}))
         })
         .catch(e => res.status(500).json({message: " Error Database ", error: e}))
-})
-
-module.exports = router
+}

@@ -20,7 +20,7 @@ async function DB(username, password){
 function connectToDB(role){
     try {
 /****** It's probably a bad idea to disconnect controler. After the last connection, no one else will be able to connect unless the server is restarted  *******/
-    // if(sequelize.config.username === process.env.GVPA_DB_USER || sequelize.config.username === process.env.GVPB_DB_USER  ){
+    // if(sequelize.config.username === process.env.GVPA_DB_USER || sequelize.config.username === process.env.GVPE_DB_USER  ){
     //     sequelize.close()
     //     .then(console.log(process.env.GVPC_DB_USER,' disconnected'))
     //     .catch(console.log('Unable to disconnect ',process.env.GVPC_DB_USER))

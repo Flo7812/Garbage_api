@@ -1,5 +1,3 @@
-// require('dotenv').config({path:'../../.env'})
-
 
 async function initDB(){
     try {

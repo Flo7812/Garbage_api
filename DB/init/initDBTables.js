@@ -1,4 +1,4 @@
-const GVPAsequelize = require('../../unUsed/GVPAsequelize')
+const GVPAsequelize = require('./GVPAsequelize')
 const DBmodels = require('../Models/index')
 const bcrypt = require('bcrypt')
 

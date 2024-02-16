@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 
-
 const extractBearer = (authorization) =>{
     if(typeof authorization !== 'string'){
         return false
@@ -21,26 +20,26 @@ const extractBearer = (authorization) =>{
     return  matches  &&  matches[2] 
 }
 
-const jwtAuthGuard = (req, res,next)=>{
+const checkTokenAccess = (req, res,next)=>{
     try {
         const token = req.headers.authorization && extractBearer(req.headers.authorization)
-        // console.log('token: ',token); // token
         if(!token){
-            return res.status(401).json({messages: 'missing token or what?'})
+            return res.status(401).json({messages: 'Access denied for missing token'})
         }
-        req.token = jwt.verify(token, process.env.JWT_SECRET_SENTENCE, (err, decodedToken)=>{
+        req.token = jwt.verify(token, process.env.JWT_SECRET_SENTENCE, (err, decodedToken) =>{
             if(err){
-                return res.status(401).json({message: 'bad token'})
+                return res.status(401).json({message: 'Access denied for bad token'})
             }
-            //console.log(decodedToken);       // body
-            // console.log(decodedToken.role); // 1 or 2
+            // res.status(200).json({message:'Authorized access from Token control'})
+            req.username = decodedToken.username
+            req.id = decodedToken.id
+            req.role = decodedToken.role
             return decodedToken
         })
-        // console.log('juste avant le next');
         next()
     } catch (error) {
-        console.log('ici:',error);
+        res.status(500).json({message: 'Error from token control', error: error})
     }
 }
 
-module.exports = jwtAuthGuard
+module.exports = checkTokenAccess
