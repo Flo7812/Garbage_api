@@ -1,6 +1,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../init/GVPAsequelize');
-
+const bcrypt = require('bcrypt')
+const UserRole = require('./userRole')
+const makeUsername = require('../../../Utils/makeUsername');
+const makeKeyNumber = require('../../../Utils/makeKeyNumber');
+const toFirstStrUppC = require('../../../Utils/toFirstStringUpperCase');
 
 const User = sequelize.define('User',{
     
@@ -55,7 +59,26 @@ const User = sequelize.define('User',{
     paranoid: true
 });
 
-// User.sync()
+User.belongsTo(UserRole,{foreignKey: 'role'})
+UserRole.hasMany(User,{foreignKey:'role'})
+
+User.add = async function(ln, fn, email, birth, address, phone, password, role, ){
+    try {
+        User.create({
+            last_name: toFirstStrUppC(ln),
+            first_name: toFirstStrUppC(fn),
+            username: makeUsername(ln,fn,makeKeyNumber(birth,phone)),
+            email: email.toLowerCase(),
+            date_of_birth : birth,
+            address: address.toLowerCase(),
+            phone: phone,
+            password: await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT)),
+            role: role
+        })
+    } catch (error) {
+        console.log({message : 'from user model',error : error});
+    }
+}   
 
 module.exports = User
 // console.log(User === sequelize.models.User);

@@ -1,7 +1,7 @@
 node_modules
 
 .env
-
+/unUsed/*
 unUsed/carr.js
 unUsed/user.js
 
@@ -12,4 +12,11 @@ unUsed/indexArrayModels.js
 unUsed/indexRouter.js
 
 unUsed/unUsed.js
+
+unUsed/authDB.js
+unUsed/authGuardDB.js
+unUsed/controlDBconnect.js
+unUsed/GVPCsequelize.js
+unUsed/GVPEsequelize.js
+
 

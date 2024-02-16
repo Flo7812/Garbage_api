@@ -24,9 +24,6 @@ exports.getUsers = async(req, res)=>{
 }
 
 exports.getUserById = (req, res)=>{
-    if(req.role !== 1){
-        return res.status(401).json({message: 'Unauthorized user'})
-    }
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -46,7 +43,6 @@ exports.getUserById = (req, res)=>{
 }
 
 exports.addUser = (req, res)=>{
-    console.log(req.role);
     if(req.role !== 1){
         return res.status(401).json({message: 'Unauthorized user'})
     }
@@ -70,7 +66,7 @@ exports.addUser = (req, res)=>{
     }).catch(e => res.status(500).json({message: "Error Database", error: e}))
 }
 
-exports.modifyUserbyId = async(req, res)=>{
+exports.modifyUserById = async(req, res)=>{
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -91,9 +87,6 @@ exports.modifyUserbyId = async(req, res)=>{
 }
 
 exports.softDeleteUseById = (req, res)=>{
-    if(req.role !== 1){
-        return res.status(401).json({message: 'Unauthorized user'})
-    }
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})
@@ -119,7 +112,7 @@ exports.restoreUserById = async(req, res)=>{
         }).catch(e =>res.status(500).json({message: "Error control if user already exists", error: e}))
 }
 
-exports.trashDeleteUserbyId = (req, res)=>{
+exports.trashDeleteUserById = (req, res)=>{
     if(req.role !== 1){
         return res.status(401).json({message: 'Unauthorized user'})
     }
@@ -134,9 +127,6 @@ exports.trashDeleteUserbyId = (req, res)=>{
 
 // get deleted users /***in progress ***/
 exports.getDeletedUsers = (req, res)=>{
-    if(req.role !== 1){
-        return res.status(401).json({message: 'Unauthorized user'})
-    }
     /*   try {
            const deletedUsers = await User.findAll({
                where: { deletedAt: { [Op.ne]: null } } // Sélectionne les lignes avec deletedAt non nul (soft deleted)

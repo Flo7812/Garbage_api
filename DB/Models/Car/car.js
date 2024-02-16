@@ -1,5 +1,11 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../init/GVPAsequelize');
+const Seller = require('./seller')
+const Brand = require('./brand')
+const Model = require('./model')
+const Motor = require('./motor')
+const User = require('../User/user')
+
 
 
 const Car = sequelize.define('Car',{
@@ -18,6 +24,10 @@ const Car = sequelize.define('Car',{
         allowNull: false
     },
     motor:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    price:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -50,6 +60,44 @@ const Car = sequelize.define('Car',{
         type: DataTypes.INTEGER(11),
     }
 },{paranoid: true})
+
+Car.belongsTo(Seller,{
+    onDelete: 'CASCADE',
+    foreignKey:'seller', 
+})
+Seller.hasMany(Car, {foreignKey: 'seller'})
+
+Car.belongsTo(Brand,{
+    onDelete: 'CASCADE',
+    foreignKey:'brand', 
+})
+Brand.hasMany(Car, {foreignKey: 'brand'})
+
+Car.belongsTo(Model,{
+    onDelete: 'CASCADE',
+    foreignKey:'model', 
+})
+Model.hasMany(Car, {foreignKey: 'model'})
+
+Car.belongsTo(Motor,{
+    onDelete: 'CASCADE',
+    foreignKey:'motor', 
+})
+Motor.hasMany(Car, {foreignKey: 'motor'})
+
+Car.belongsTo(User,{
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE',
+    foreignKey:'createdBy', 
+})
+User.hasMany(Car, {foreignKey: 'createdBy'})
+
+Car.belongsTo(User,{
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE',
+    foreignKey:'deletedBy', 
+})
+User.hasMany(Car, {foreignKey: 'deletedBy'})
 
 /************* Get All *********************/
 

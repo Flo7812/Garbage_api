@@ -1,4 +1,4 @@
-const { Car, Brand, Model, Motor} = require('../../DB/Models/index')
+const { Car, Brand, Model, Motor, Seller} = require('../../DB/Models/index')
 
 //function to get brand, model and motor name from their own tables
 async function reqCarData(cars, res){
@@ -18,23 +18,8 @@ async function reqCarData(cars, res){
         return res.status(200).json({ data: carsData })
 }
 
-/*****if strings for brand etc.. control by regex ******/
-/*         if(
-            typeof req.body.brand === 'number' &&
-            typeof req.body.model === 'number' && 
-            typeof req.body.motor === 'number' &&
-            typeof req.body.kilometers === 'number' &&
-            typeof req.body.initial_registration === 'number' &&
-            typeof req.body.description === 'string' || req.body.description === null &&
-            typeof req.body.img === 'string' || req.body.description === null  &&
-            typeof req.body.seller === 'number' 
-        ){
-            
-        }else{
-            return res.status().json({message: 'Error on body typeof '})
-        } */
-
-
+        
+/********public **************/
 exports.getCarsDBdatas = (req,res)=>{
     try {
         Car.findAll()
@@ -44,7 +29,7 @@ exports.getCarsDBdatas = (req,res)=>{
     }
 }
 
-exports.getCarDBdatabyId = (req,res)=>{
+exports.getCarDBdatasById = (req,res)=>{
     let carId = parseInt(req.params.id)
         if(!carId){
             return res.status(400).json({message: "id parameter missing or not id"})
@@ -72,7 +57,7 @@ exports.getCars = async(req,res)=>{
     }
 }
 
-exports.getCarbyId = async(req,res)=>{
+exports.getCarById = async(req,res)=>{
     let carId = parseInt(req.params.id)
     if(!carId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -174,8 +159,8 @@ exports.getCarsByMotorName = async(req,res)=>{
         res.status(500).json({ message: "Error Database", error })
     }
 }
-
-exports.addCarById = (req,res)=>{
+/********private **************/
+exports.addCar = (req,res)=>{
     try {
         req.body.createdBy = req.id 
         let {brand, model, motor, kilometers, initial_registration, seller, createdBy} = req.body
@@ -206,13 +191,28 @@ exports.modifyCarById = async(req,res)=>{
         if(!carId){
             return res.status(400).json({message: "id parameter missing"})
         }
+        console.log(req.body.brand, req.body.model, req.body.motor,);
         Car.findByPk(carId)
-            .then(car => {
+            .then(async car => {
                 if(car === null){
                     return res.status(404).json({message: `this ${carId} doesn't exist`})
                 }
+                if(req.body.brand){
+                    // const brand = await Brand.findByPk(req.body.model)
+                    req.body.brand.toLowerCase() = await Brand.getIdByName(req.body.brand)
+                }
+                if(req.body.model){
+                    const model = await Model.findOne({where:{name:req.body.model}})
+                    req.body.model.toLowerCase() = model.id
+                }
+                if(req.body.motor){
+                    const motor = await Motor.findOne({where:{type:req.body.motor}})
+                    req.body.motor.toLowerCase() = motor.id
+                }
+                const seller = await Seller.findOne({where:{last_name : req.body.seller}})
+                req.body.seller = seller.id
                 // control Body
-                Car.update(req.body, {where : {id: carId}})
+                await Car.update(req.body, {where : {id: carId}})
                     .then(res.json({message: `this Car: brand id :${req.body.brand} model id:${req.body.model} updated`,by: req.username}))
                     .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
             })
@@ -221,7 +221,7 @@ exports.modifyCarById = async(req,res)=>{
     }
 }
 
-exports.softDeleteCarbyId = async(req,res)=>{
+exports.softDeleteCarById = async(req,res)=>{
     try {
         req.body.deletedBy = req.id
         let carId = parseInt(req.params.id)
@@ -298,29 +298,6 @@ exports.getDeletedCars = (req,res)=>{
 
 }
 
-exports.getBrands = (req,res)=>{
 
-}
-exports.getBrandById = (req,res)=>{
 
-}
 
-exports.addBrand = (req,res)=>{
-
-}
-
-exports.getModels = (req,res)=>{
-
-}
-exports.addModel = (req,res)=>{
-
-}
-
-exports.GetMotors = (req,res)=>{
-
-}
-exports.addMotor = (req,res)=>{
-    if(description){
-
-    }
-}

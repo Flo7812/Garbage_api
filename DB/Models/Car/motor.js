@@ -13,11 +13,19 @@ const Motor = sequelize.define('car_motor',{
         allowNull: false
     },
     description:{
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         deaultValue: '',
         allowNull: false
     }
 },{paranoid: true})
+
+Motor.getName = function(){
+    return this.type
+}
+
+Motor.getFullMotor = function(){
+    return `${this.type} ${this.description}`
+}
 
 module.exports = Motor
 // console.log(Motor === sequelize.Motors.Model);

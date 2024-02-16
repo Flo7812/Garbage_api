@@ -1,18 +1,17 @@
 const express = require('express')
 let router = express.Router()
-const { getCarbyId, getCarsByMotorId, getCarsByModelId, getCarsByBrandId, getCars, getCarsDBdatas, getCarDBdatabyId, getBrands, getBrandById } = require('../../Controllers/cars/carsC')
+const { getCarById, getCarsByMotorId, getCarsByModelId, getCarsByBrandId, getCars, getCarsDBdatas, getCarDBdatasById } = require('../../Controllers/cars/carsC')
 
 
 
-//get all cars with int datas (foreignKeys)
+
 router.get('/fk', getCarsDBdatas);
 
-//get car with int datas (foreignKeys)
-router.get('/fk/:id', getCarDBdatabyId);
+router.get('/fk/:id', getCarDBdatasById);
 
-router.get('/brand', getBrands);
+router.get('', getCars);
 
-router.get('/brand/:id', getBrandById);
+router.get('/:id', getCarById);
 
 router.get('/brand/:id', getCarsByBrandId);
 
@@ -20,8 +19,10 @@ router.get('/model/:id', getCarsByModelId);
 
 router.get('/motor/:id', getCarsByMotorId);
 
-router.get('', getCars);
+router.get('/motor/:name', getCarsByMotorId);
 
-router.get('/:id', getCarbyId);
+
+
+
 
 module.exports = router 

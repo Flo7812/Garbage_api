@@ -51,6 +51,9 @@ Brand.getNamebyId = async function(id){
         console.log(`Error from Model Brand : Can\'t find this brand with id: ${this.id}`, error)
     }  
 }
+Brand.getName = function(){
+    return this.name
+}
 
 Brand.getIdByName = async function(name){
     try {

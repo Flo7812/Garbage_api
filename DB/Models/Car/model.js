@@ -17,7 +17,7 @@ const Model = sequelize.define('car_model',{
         defaultValue:''
     },  
     description:{
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         deaultValue: ''
     }
 },{paranoid: true})

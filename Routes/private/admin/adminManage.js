@@ -9,9 +9,9 @@ router.get('', (req, res)=>{
 })
 
 
-router.use('/manage-users', manageUsers_router)
-router.use('/manage-sections', manageSections_router)
-router.use('/manage-schedules', manageShedules_router)
+router.use('/users', manageUsers_router)
+router.use('/sections', manageSections_router)
+router.use('/schedules', manageShedules_router)
 
 module.exports = router
 

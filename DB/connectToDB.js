@@ -9,7 +9,7 @@ async function DB(username, password){
     await sequelize.authenticate()
     if(sequelize.config.username === process.env.GVPC_DB_USER){
         require('./Models/index');
-        require('./Models/associations')
+        require('../unUsed/associations')
         sequelize.sync(/* {alter: true} */)
             .then(()=> {console.log('Synchronization DB success.')})
             .catch((e)=> console.log('Unable to sync :', e))

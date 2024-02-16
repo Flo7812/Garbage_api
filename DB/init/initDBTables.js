@@ -1,14 +1,9 @@
 const GVPAsequelize = require('./GVPAsequelize')
-const DBmodels = require('../Models/index')
 const bcrypt = require('bcrypt')
-
+const DBmodels = require('../Models/index')
 
 async function initDBTables(){
     try {
-
-        await require('../Models/associations')
-            .then(console.log('access with initDBTables OK'))
-            .catch((e)=>console.log('unable to connect associations', e))
         await GVPAsequelize.authenticate()
             .then(()=> console.log('Connection DB has been established successfully.'))
             .catch((e)=> console.log('Unable to authenticate :', e))
@@ -118,8 +113,9 @@ async function initDBTables(){
                         )
                 )).then(console.log('instances testimonyStatus OK'))
                 .catch((e)=> console.log('Unable to create instances of Table TestimonyStatus', e))
+            
             const vpPass = await bcrypt.hash(process.env.USER_ADMIN_PASSWORD, parseInt(process.env.BCRYPT_SALT))
-            const ePass = await bcrypt.hash(process.env.USER_EMPLOYEE_PASSWORD, parseInt(process.env.BCRYPT_SALT))
+            const ePass = await bcrypt.hash(process.env.USER_JEANBON_PASSWORD, parseInt(process.env.BCRYPT_SALT))
             await DBmodels.User.bulkCreate([
                 {
                     last_name: 'Parrot',
@@ -151,7 +147,7 @@ async function initDBTables(){
                         )
                 )).then(console.log('instances Users OK'))
                 .catch((e)=> console.log('Unable to create instances of Table Users', e))
-
+            await DBmodels.User.add('Cesar','jules','jc@mail.rom','1988-10-12','15rue de la victoire','0777777777',process.env.USER_JULESCESAR_PASSWORD,'2' )  
             await DBmodels.Seller.bulkCreate([
                 {
                     last_name: 'Doe',
@@ -188,6 +184,7 @@ async function initDBTables(){
                     brand: '1',
                     model: '1',
                     motor: '5',
+                    price:'8000',
                     kilometers: '90400',
                     initial_registration: '2009-06-09',
                     description: 'Une super voiture!',
@@ -198,6 +195,7 @@ async function initDBTables(){
                     brand: '2',
                     model: '3',
                     motor: '6',
+                    price:'15000',
                     kilometers: '32330',
                     initial_registration: '2021-11-29',
                     description: 'Ideale pour des petits trajets.',
@@ -208,6 +206,7 @@ async function initDBTables(){
                     brand: '3',
                     model: '4',
                     motor: '1',
+                    price:'12000',
                     kilometers: '69000',
                     initial_registration: '2013-09-30',
                     description: 'Un classique pour tout les jours et les vacances!!',
@@ -218,6 +217,7 @@ async function initDBTables(){
                     brand: '4',
                     model: '5',
                     motor: '7',
+                    price:'3500',
                     kilometers: '105480',
                     initial_registration: '2003-04-01',
                     description: 'Fiable!!',

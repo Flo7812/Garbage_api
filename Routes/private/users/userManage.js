@@ -5,7 +5,7 @@ router.get('', (req, res)=>{
     res.send('ici pour choisir son manage du jour')
 })
 
-router.use('/manage-cars', require('./manageCars'))
-router.use('/manage-testimonials', require('./manageTestimonials'))
+router.use('/cars', require('./manageCars'))
+router.use('/testimonials', require('./manageTestimonials'))
 
 module.exports = router

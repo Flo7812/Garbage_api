@@ -1,5 +1,5 @@
 {
-  "name": "garbage_api",
+  "name": "garbage-api",
   "version": "1.2.0",
   "description": "an api for a wonderful garbage",
   "main": "index.js",
@@ -20,5 +20,6 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.1",
     "sequelize": "^6.36.0"
-  }
+  },
+  "devDependencies": {}
 }

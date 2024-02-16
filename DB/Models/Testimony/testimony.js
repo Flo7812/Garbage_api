@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../init/GVPAsequelize');
+const TestimonyStatus = require('./testimonyStatus')
+const User = require('../User/user')
 
 
 const Testimony = sequelize.define('Testimony',{
@@ -45,7 +47,19 @@ const Testimony = sequelize.define('Testimony',{
     tableName: 'testimonials'
 });
 
-// Testimony.sync()
+Testimony.belongsTo(User,{
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE',
+    foreignKey: 'validator'
+})
+User.hasMany(Testimony, {foreignKey: 'validator'})
+
+Testimony.belongsTo(TestimonyStatus,{
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE',
+    foreignKey: 'status'
+})
+TestimonyStatus.hasMany(Testimony, {foreignKey:'status'})
 
 module.exports = Testimony
 // console.log(Testimony === sequelize.models.Testimony);
