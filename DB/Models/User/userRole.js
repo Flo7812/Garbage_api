@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../init/GVPAsequelize');
+const sequelize = require('../../sequelize');
 
 
 const UserRole = sequelize.define('User_Role',{

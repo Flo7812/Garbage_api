@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../init/GVPAsequelize');
+const sequelize = require('../../sequelize');
 const Seller = require('./seller')
 const Brand = require('./brand')
 const Model = require('./model')
@@ -98,6 +98,18 @@ Car.belongsTo(User,{
     foreignKey:'deletedBy', 
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
+
+Car.afterRestore = async function(){
+
+}
+
+Car.getDisplayCard = async function(){
+
+}
+
+Car.getDisplayCards = async function(){
+    
+}
 
 /************* Get All *********************/
 

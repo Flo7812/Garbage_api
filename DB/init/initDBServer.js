@@ -1,4 +1,3 @@
-// require('dotenv').config({path: '../../.env'})
 const mysql = require('mysql2/promise')
 
 async function initDBServer(){
@@ -24,18 +23,19 @@ async function initDBServer(){
                 DROP DATABASE IF EXISTS ${process.env.GVP_DB};
                 SHOW DATABASES;
                 SELECT user, host FROM mysql.user;`)
-                console.log('database and users destroyed', query1[5], query1[6] )
+                console.log('database and users destroyed', query1[4], query1[5] )
 
         const [query2] = await myDb.query(`
                 CREATE USER IF NOT EXISTS '${process.env.GVPC_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPC_DB_PASSWORD}';
                 CREATE USER IF NOT EXISTS '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}';
                 GRANT SELECT ON ${process.env.GVP_DB}.* TO '${process.env.GVPC_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPC_DB_PASSWORD}';
-                SELECT user, host FROM mysql.user;
+                SELECT user,host FROM mysql.user;
                 SHOW GRANTS FOR '${process.env.GVPA_DB_USER}'@'%';
                 GRANT ALL PRIVILEGES ON *.* TO '${process.env.GVPA_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPA_DB_PASSWORD}' WITH GRANT OPTION;
                 SHOW GRANTS FOR '${process.env.GVPA_DB_USER}'@'%';
+                SHOW GRANTS FOR '${process.env.GVPC_DB_USER}'@'%';
                 `)
-                console.log(`USER "${process.env.GVPA_DB_USER}"@"%" created and GRANT'`, query2[3], query2[4], query2[6])
+                console.log(`USER "${process.env.GVPA_DB_USER}"@"%" created and GRANT'`, query2[3], query2[4], query2[6], query2[7])
 
         await myDb.end()
             .then(console.log(`${myDb.config.user} disconnected`))
@@ -62,14 +62,13 @@ async function initDBServer(){
                 CREATE USER IF NOT EXISTS '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
                 SELECT user, host FROM mysql.user;
                 SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
-                GRANT SELECT, CREATE, DROP, ALTER ON ${process.env.GVP_DB}.* TO '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
+                GRANT SELECT,INSERT, UPDATE, CREATE, DELETE ON ${process.env.GVP_DB}.* TO '${process.env.GVPE_DB_USER}'@'%' IDENTIFIED BY '${process.env.GVPE_DB_PASSWORD}';
                 SHOW GRANTS FOR '${process.env.GVPE_DB_USER}'@'%';
                 SELECT user, host FROM mysql.user;`)
                 console.log(`DATABASE ${process.env.GVP_DB} and USER "${process.env.GVPE_DB_USER}"@"%" created and GRANT, "root"@"%" destroyed'`,query3[1], query3[4], query3[5], query3[7])
         await GarageVParrot.end() 
-            .then(console.log(`${GarageVParrot.config.user} disconnected`))
-            .catch(error => console.log(error))
-
+        .then(console.log(`${GarageVParrot.config.user} disconnected`))
+        .catch(error => console.log(error))
     } catch (error) {
         console.log(error)
     }

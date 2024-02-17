@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../init/GVPAsequelize');
+const sequelize = require('../../sequelize');
 const bcrypt = require('bcrypt')
 const UserRole = require('./userRole')
 const makeUsername = require('../../../Utils/makeUsername');
@@ -79,6 +79,10 @@ User.add = async function(ln, fn, email, birth, address, phone, password, role, 
         console.log({message : 'from user model',error : error});
     }
 }   
+
+User.beforeUpdate = async function(){
+    
+}
 
 module.exports = User
 // console.log(User === sequelize.models.User);
