@@ -1,5 +1,9 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 
 
 const UserRole = sequelize.define('User_Role',{
@@ -14,11 +18,11 @@ const UserRole = sequelize.define('User_Role',{
         type: DataTypes.STRING,
         allowNull: false,
         // unique: true
-    }
-
+    },
 },{
     timestamps: false,
 })
+
 
 module.exports = UserRole
 // console.log(UserRole === sequelize.models.UserRole);

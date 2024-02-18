@@ -1,8 +1,12 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 
 
-const ShedulesDays = sequelize.define('Shedules_Days',{
+const ShedulesDays = sequelize.define('shedules_days',{
     
     id:{
         type: DataTypes.INTEGER(11),

@@ -8,14 +8,7 @@ const {  } = require('../../Controllers/sections/sectionsC')
 //get all sections
 router.get('', async(req, res)=>{
     try {
-        const sections = []
-        const main = await MainSection.findAll()
-        const services = await ServicesSection.findAll()
-        const datasSection= {
-            main,
-            services
-            }
-        sections.push(datasSection)
+        const sections = await Section.findAll()
         return res.status(200).json({data: sections})
     } catch (error) {
         res.status(500).json({message: "Error Database", error})
@@ -23,52 +16,52 @@ router.get('', async(req, res)=>{
 })
 
 
-//get all mainSections
+//get all Sections
 router.get('/main-section', (req, res)=>{
-    MainSection.findAll()
-        .then(mainSections => {
-            return res.status(200).json({data: mainSections})
+    Section.findAll()
+        .then(sections => {
+            return res.status(200).json({data: sections})
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))    
 });
 
-//get a mainSection by id
+//get a Section by id
 router.get('/main-section/:id', (req, res)=>{
-    let mSectionId = req.params.id
-    if(!mSectionId){
+    let sectionId = req.params.id
+    if(!sectionId){
         return res.status(400).json({message: 'missing id or not id'})
     }
-    MainSection.findByPk(mSectionId)
-        .then(mainSection => {
-            if(mainSection === null){
+    Section.findByPk(sectionId)
+        .then(section => {
+            if(section === null){
                 return res.status(409).json({message: 'this section doesn\'t exists'})
             }
-            return res.status(200).json({data: mainSection})
+            return res.status(200).json({data: section})
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))    
 });
 
-//get all servicesSections
+//get all PageSections
 router.get('/services-section', (req, res)=>{
-    ServicesSection.findAll()
-        .then(servicesSections => {
-            return res.status(200).json({data: servicesSections})
+    PageSection.findAll()
+        .then(pageSections => {
+            return res.status(200).json({data: pageSections})
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))    
 });
 
 //get a serviceSection by id
 router.get('/services-section/:id',(req, res)=>{
-    let sSectionId = req.params.id
-    if(!sSectionId){
+    let pSectionId = req.params.id
+    if(!pSectionId){
         return res.status(400).json({message: 'missing id or not id'})
     }
-    ServicesSection.findByPk(sSectionId)
-        .then(servicesSection => {
-            if(servicesSection === null){
+    PageSection.findByPk(pSectionId)
+        .then(pageSection => {
+            if(pageSection === null){
                 return res.status(409).json({message: 'this section doesn\'t exists'})
             }
-            return res.status(200).json({data: servicesSection})
+            return res.status(200).json({data: pageSection})
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))    
 });

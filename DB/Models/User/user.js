@@ -1,5 +1,9 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 const bcrypt = require('bcrypt')
 const UserRole = require('./userRole')
 const makeUsername = require('../../../Utils/makeUsername');
@@ -62,8 +66,10 @@ const User = sequelize.define('User',{
 User.belongsTo(UserRole,{foreignKey: 'role'})
 UserRole.hasMany(User,{foreignKey:'role'})
 
+
 User.add = async function(ln, fn, email, birth, address, phone, password, role, ){
     try {
+        // const user = 
         User.create({
             last_name: toFirstStrUppC(ln),
             first_name: toFirstStrUppC(fn),
@@ -75,10 +81,22 @@ User.add = async function(ln, fn, email, birth, address, phone, password, role, 
             password: await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT)),
             role: role
         })
+        // await User.afterCreate(user)
     } catch (error) {
         console.log({message : 'from user model',error : error});
     }
 }   
 
+<<<<<<< Updated upstream
+=======
+User.afterCreate = (user)=>{
+    // make usename key with id?
+}
+
+User.beforeUpdate = async function(user){
+    
+}
+
+>>>>>>> Stashed changes
 module.exports = User
 // console.log(User === sequelize.models.User);

@@ -1,9 +1,13 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 
 
 
-const TestimonyStatus = sequelize.define('Testimony_Status',{
+const TestimonyStatus = sequelize.define('testimony_Status',{
 
     id:{
         type: DataTypes.TINYINT,

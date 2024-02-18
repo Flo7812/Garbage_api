@@ -1,5 +1,9 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 
 const Model = sequelize.define('car_model',{
 

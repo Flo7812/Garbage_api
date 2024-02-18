@@ -1,10 +1,14 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 const TestimonyStatus = require('./testimonyStatus')
 const User = require('../User/user')
 
 
-const Testimony = sequelize.define('Testimony',{
+const Testimony = sequelize.define('testimony',{
     
     id:{
         type: DataTypes.INTEGER(11),
