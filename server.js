@@ -11,15 +11,14 @@ api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(cors());
 
-/********* Databse connection require ****************************/
-const DB = require('./DB/connectToDB')
-
 /********** Middlewares requires *********************************/
+
 const checkTokenAccess = require('./Middleware/in/checkTokenAccess')
 const checkRoleAccess = require('./Middleware/in/checkRoleAccess')
 
 /********** Start server and DB **********/
-api.listen(PORT,()=>{
+
+api.listen(PORT, async()=>{
     console.log(`Server running on PORT: ${PORT} connected`);
 /*     try {
         if(){
@@ -58,10 +57,9 @@ api.use('/services', sections_router)
 api.use('/testimonials', testimony_router)
 api.use('/schedules', shedules_router)
 
-api.use('/auth', auth_router)
+api.use('/login', login_router)
 api.use('/user',checkTokenAccess , user_router)
 api.use('/admin',checkTokenAccess , checkRoleAccess, admin_router)
-
 
 api.get('*',(req, res)=>{
     res.status(404).send('Nothing to do here!')

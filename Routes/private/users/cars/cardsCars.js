@@ -1,6 +1,9 @@
 const express = require('express')
 let router = express.Router()
-const {addCar, getDeletedCars, trashDeleteCarById, restoreCarById, softDeleteCarById, modifyCarById} = require('../../../Controllers/cars/carsC')
+const cardCar_router = ('./cardCar')
+const {addCar, getDeletedCars, trashDeleteCarById, restoreCarById, softDeleteCarById, modifyCarById} = require('../../../../Controllers/cars/carsC')
+
+router.use('/cardCar', cardCar_router)
 
 router.get('', (req, res)=>{
     res.send('ici pour manage les voitures')

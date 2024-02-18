@@ -1,12 +1,16 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< HEAD:DB/Models/Sections/servicesSection.js
 <<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
 const sequelize = require('../../init/GVPAsequelize');
 =======
 const sequelize = require('../../Connection/GVP');
 const SectionPage = require('./sectionPage')
 >>>>>>> Stashed changes:DB/Models/Sections/section.js
+=======
+const sequelize = require('../../sequelize');
+>>>>>>> origin/ModelControllers:DB/Models/Sections/section.js
 
-const ServicesSection = sequelize.define('section_service',{
+const Section = sequelize.define('section',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -26,6 +30,7 @@ const ServicesSection = sequelize.define('section_service',{
         
     },
     position:{
+<<<<<<< HEAD:DB/Models/Sections/servicesSection.js
 <<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
         type: DataTypes.INTEGER(2),
 
@@ -41,10 +46,19 @@ const ServicesSection = sequelize.define('section_service',{
 
     }
 >>>>>>> Stashed changes:DB/Models/Sections/section.js
+=======
+        type: DataTypes.INTEGER,
+        defaultValue: this.id
+    },
+    section:{
+        type: DataTypes.INTEGER
+    }
+>>>>>>> origin/ModelControllers:DB/Models/Sections/section.js
 },{
     paranoid: true
 });
 
+<<<<<<< HEAD:DB/Models/Sections/servicesSection.js
 <<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
 module.exports = ServicesSection
 =======
@@ -73,4 +87,7 @@ Section.getSectionbyPage = async (page)=>{
 
 module.exports = Section
 >>>>>>> Stashed changes:DB/Models/Sections/section.js
+=======
+module.exports = Section
+>>>>>>> origin/ModelControllers:DB/Models/Sections/section.js
 // console.log(Section === sequelize.models.Section);

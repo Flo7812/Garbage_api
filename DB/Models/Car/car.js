@@ -1,9 +1,13 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
 =======
 const sequelize = require('../../Connection/GVP');
 >>>>>>> Stashed changes
+=======
+const sequelize = require('../../sequelize');
+>>>>>>> origin/ModelControllers
 const Seller = require('./seller')
 const Brand = require('./brand')
 const Model = require('./model')
@@ -109,6 +113,7 @@ Car.belongsTo(User,{
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 Car.createRef = async function(){
@@ -125,11 +130,16 @@ Car.createCar = async function(){
 
 Car.getCarByRef
 
+=======
+>>>>>>> origin/ModelControllers
 Car.afterRestore = async function(){
 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ModelControllers
 Car.getDisplayCard = async function(){
 
 }
@@ -138,7 +148,10 @@ Car.getDisplayCards = async function(){
     
 }
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> origin/ModelControllers
 /************* Get All *********************/
 
 // Car.getNames = async function(){

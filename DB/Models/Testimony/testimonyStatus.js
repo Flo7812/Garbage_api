@@ -1,9 +1,13 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
 =======
 const sequelize = require('../../Connection/GVP');
 >>>>>>> Stashed changes
+=======
+const sequelize = require('../../sequelize');
+>>>>>>> origin/ModelControllers
 
 
 

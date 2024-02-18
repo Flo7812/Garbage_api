@@ -1,20 +1,18 @@
-
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../../DB/Models/User/user')
 
 
-exports.login = (req, res) =>{
+exports.login = async(req, res) =>{
     const {email, password} = req.body
     if(!email || !password){
         return res.status(400).json({message: 'email or/and password missing'})
     }
-    User.findOne({where: {email : req.body.email}, raw: true})
+    await User.findOne({where: {email : req.body.email}, raw: true})
         .then(user =>{
             if(user === null){
                 return res.status(401).json({message: 'This account doesn\'t exist'})
             }
-            req.role = user.role // used by the output middleware 
             bcrypt.compare(password, user.password)
                 .then(async test =>{
                     if(!test){
@@ -28,6 +26,7 @@ exports.login = (req, res) =>{
                         email: user.email,
                         role: user.role
                     },process.env.JWT_SECRET_SENTENCE, {expiresIn: process.env.JWT_DURING})
+<<<<<<< HEAD:Controllers/auth/authC.js
 <<<<<<< Updated upstream:Controllers/auth/authC.js
                     
                     return res.json({access_token: token})
@@ -38,6 +37,14 @@ exports.login = (req, res) =>{
 
                     return res.json({message: 'Authorized Access', access_token: token})
 >>>>>>> Stashed changes:Controllers/auth/loginC.js
+=======
+
+                    req.role = user.role 
+                    req.name = `${user.first_name} ${user.last_name} `
+                    req.token = token 
+
+                    return res.json({message: 'Authorized Access',access_token: token})
+>>>>>>> origin/ModelControllers:Controllers/auth/loginC.js
                 })
                 .catch(e => res.status(500).json({message: 'Check logging failed', error: e}))
         })

@@ -1,13 +1,27 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> origin/ModelControllers
 const  Section  = require('../../DB/Models/Sections/section');
 const  sectionPage  = require('../../DB/Models/Sections/sectionPage');
 
 
 exports.getAllSections = async (req, res)=>{
     try {
+<<<<<<< HEAD
 
         const sections = await MainSection.findAll()
+=======
+        const sections = []
+        const main = await MainSection.findAll()
+        const services = await ServicesSection.findAll()
+        const datasSection= {
+            main,
+            services
+            }
+        sections.push(datasSection)
+>>>>>>> origin/ModelControllers
         return res.status(200).json({data: sections})
     } catch (error) {
         res.status(500).json({message: "Error Database", error})
@@ -15,14 +29,22 @@ exports.getAllSections = async (req, res)=>{
 }
 
 exports.getMainSections = async(req, res)=>{
+<<<<<<< HEAD
     Section.findAll()
+=======
+    MainSection.findAll()
+>>>>>>> origin/ModelControllers
     .then(mainSections => {
         return res.status(200).json({data: mainSections})
     })
     .catch(e => res.status(500).json({message: "Error Database", error: e}))
 }
 
+<<<<<<< HEAD
 exports.getMainSectionById = async(req, res)=>{
+=======
+exports.getMainectionById = async(req, res)=>{
+>>>>>>> origin/ModelControllers
     let mSectionId = req.params.id
     if(!mSectionId){
         return res.status(400).json({message: 'missing id or not id'})
@@ -201,5 +223,9 @@ exports.getAllDeletedSections = (req, res)=>{
     } catch (error) {
         res.status(500).json({ message: "Erreur de la base de données", error });
     }*/
+<<<<<<< HEAD
 }
 >>>>>>> Stashed changes
+=======
+}
+>>>>>>> origin/ModelControllers

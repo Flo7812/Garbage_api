@@ -11,5 +11,6 @@ async function initDB(){
         console.log('fatal error on processus:', error);
     }
 }
-
 initDB()
+
+// module.exports = initDB

@@ -1,9 +1,13 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
 =======
 const sequelize = require('../../Connection/GVP');
 >>>>>>> Stashed changes
+=======
+const sequelize = require('../../sequelize');
+>>>>>>> origin/ModelControllers
 const TestimonyStatus = require('./testimonyStatus')
 const User = require('../User/user')
 
@@ -64,6 +68,18 @@ Testimony.belongsTo(TestimonyStatus,{
     foreignKey: 'status'
 })
 TestimonyStatus.hasMany(Testimony, {foreignKey:'status'})
+
+Testimony.afterRestore = async function (){
+
+}
+
+Testimony.getAllToComfirm = async function(){
+
+}
+
+Testimony.getAllvalidate = async function(){
+    
+}
 
 module.exports = Testimony
 // console.log(Testimony === sequelize.models.Testimony);
