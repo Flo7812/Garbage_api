@@ -1,5 +1,9 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
+=======
+const sequelize = require('../../Connection/GVP');
+>>>>>>> Stashed changes
 const Seller = require('./seller')
 const Brand = require('./brand')
 const Model = require('./model')
@@ -14,6 +18,12 @@ const Car = sequelize.define('Car',{
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
         primaryKey: true
+    },
+    ref:{
+        type: DataTypes.STRING,
+        allowNull:false,
+        defaultValue:'',
+        unique: true
     },
     brand:{
         type: DataTypes.INTEGER,
@@ -99,6 +109,36 @@ Car.belongsTo(User,{
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
 
+<<<<<<< Updated upstream
+=======
+Car.createRef = async function(){
+
+}
+
+Car.createCar = async function(){
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+Car.getCarByRef
+
+Car.afterRestore = async function(){
+
+}
+
+
+Car.getDisplayCard = async function(){
+
+}
+
+Car.getDisplayCards = async function(){
+    
+}
+
+>>>>>>> Stashed changes
 /************* Get All *********************/
 
 // Car.getNames = async function(){

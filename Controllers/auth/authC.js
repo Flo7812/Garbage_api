@@ -16,7 +16,7 @@ exports.login = (req, res) =>{
             }
             req.role = user.role // used by the output middleware 
             bcrypt.compare(password, user.password)
-                .then(test =>{
+                .then(async test =>{
                     if(!test){
                         return res.status(401).json({message: 'Wrong password'})
                     }
@@ -28,10 +28,18 @@ exports.login = (req, res) =>{
                         email: user.email,
                         role: user.role
                     },process.env.JWT_SECRET_SENTENCE, {expiresIn: process.env.JWT_DURING})
+<<<<<<< Updated upstream:Controllers/auth/authC.js
                     
                     return res.json({access_token: token})
+=======
+
+                    req.body.role = user.role 
+                    req.body.name = `${user.first_name} ${user.last_name} `
+
+                    return res.json({message: 'Authorized Access', access_token: token})
+>>>>>>> Stashed changes:Controllers/auth/loginC.js
                 })
                 .catch(e => res.status(500).json({message: 'Check logging failed', error: e}))
         })
-        .catch(e => res.status(500).json({message: " Error Database ", error: e}))
+        .catch(e => res.status(500).json({message: " Error Database from here ", error: e}))
 }

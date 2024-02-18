@@ -48,6 +48,27 @@ exports.getCarDBdatasById = (req,res)=>{
     }
 }
 
+exports.getCardCars = (req,res)=>{
+    let carId = parseInt(req.params.id)
+        if(!carId){
+            return res.status(400).json({message: "id parameter missing or not id"})
+        }
+    try {
+        Car.findByPk( carId )
+        .then(car=> {
+            if((car === null)){
+                return res.status(404).json({message: `Car with this id: ${car} doesn't exist`})
+            }
+            console.log({data : car.dataValues});
+            return res.json({data: car})
+        })
+    } catch (error) {
+        res.status(500).json({message: "Error Database", error: error})
+    }
+}
+
+
+
 exports.getCars = async(req,res)=>{
     try {
         const cars = await Car.findAll()

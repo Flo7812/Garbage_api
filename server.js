@@ -21,29 +21,40 @@ const checkRoleAccess = require('./Middleware/in/checkRoleAccess')
 /********** Start server and DB **********/
 api.listen(PORT,()=>{
     console.log(`Server running on PORT: ${PORT} connected`);
-    DB()
+/*     try {
+        if(){
+            require('./DB/init/initDB')
+            console.log('Init DATABASE successful');
+        }else{
+            console.log('Database already exists');
+        }
+        return
+    } catch (error) {
+        console.log('Unable to init DATABASE', error);
+    } */
 })
 
-api.get('',(req, res)=>{
-    res.status(200).send('Server Express - Garrage Vincent Parrot')
-})
+/********** Controllers Requires ******/
+const { getMainSections } = require('./Controllers/sections/sectionsC')
+const { getCardCars } = require('./Controllers/cars/carsC')
+const { getMainSections } = require('./Controllers/Testimonials/testimonials')
+
 /*********** Router Requires **********/
 
-const car_router = require('./Routes/public/cars')
+const cars_router = require('./Routes/public/cars')
 const sections_router = require('./Routes/public/sections')
 const testimony_router = require('./Routes/public/testimonials')
 const shedules_router = require('./Routes/public/shedules')
 
-const auth_router = require('./Routes/public/auth')
-const user_router = require('./Routes/private/users/userManage')
-const admin_router = require('./Routes/private/admin/adminManage')
-
+const login_router = require('./Routes/public/login')
+const user_router = require('./Routes/private/users/router')
+const admin_router = require('./Routes/private/admin/router')
 
 
 /*********** Router **********/
-// api.use('', visitor_router)
-api.use('/cars', car_router)
-api.use('/sections', sections_router)
+api.get('', getMainSections, getValidateTestimoials, getCardCars)
+api.use('/cars', cars_router)
+api.use('/services', sections_router)
 api.use('/testimonials', testimony_router)
 api.use('/schedules', shedules_router)
 
