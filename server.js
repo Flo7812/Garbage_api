@@ -20,38 +20,28 @@ const checkRoleAccess = require('./Middleware/in/checkRoleAccess')
 
 api.listen(PORT, async()=>{
     console.log(`Server running on PORT: ${PORT} connected`);
-/*     try {
-        if(){
-            require('./DB/init/initDB')
-            console.log('Init DATABASE successful');
-        }else{
-            console.log('Database already exists');
-        }
-        return
-    } catch (error) {
-        console.log('Unable to init DATABASE', error);
-    } */
+    require('./DB/Connection/syncSeq')
 })
 
 /********** Controllers Requires ******/
 const { getMainSections } = require('./Controllers/sections/sectionsC')
 const { getCardCars } = require('./Controllers/cars/carsC')
-const { getMainSections } = require('./Controllers/Testimonials/testimonials')
+const { getValidateTestimonials } = require('./Controllers/Testimonials/testimonialsC')
 
 /*********** Router Requires **********/
 
-const cars_router = require('./Routes/public/cars')
-const sections_router = require('./Routes/public/sections')
-const testimony_router = require('./Routes/public/testimonials')
-const shedules_router = require('./Routes/public/shedules')
+const cars_router = require('./Routes/Public/cars')
+const sections_router = require('./Routes/Public/sections')
+const testimony_router = require('./Routes/Public/testimonials')
+const shedules_router = require('./Routes/Public/shedules')
 
-const login_router = require('./Routes/public/login')
-const user_router = require('./Routes/private/users/router')
-const admin_router = require('./Routes/private/admin/router')
+const login_router = require('./Routes/Public/login')
+const user_router = require('./Routes/Private/USER/router_UR')
+const admin_router = require('./Routes/Private/ADMIN/router_AR')
 
 
 /*********** Router **********/
-api.get('', getMainSections, getValidateTestimoials, getCardCars)
+api.get('', getMainSections, getValidateTestimonials, getCardCars)
 api.use('/cars', cars_router)
 api.use('/services', sections_router)
 api.use('/testimonials', testimony_router)

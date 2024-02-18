@@ -26,25 +26,11 @@ exports.login = async(req, res) =>{
                         email: user.email,
                         role: user.role
                     },process.env.JWT_SECRET_SENTENCE, {expiresIn: process.env.JWT_DURING})
-<<<<<<< HEAD:Controllers/auth/authC.js
-<<<<<<< Updated upstream:Controllers/auth/authC.js
-                    
-                    return res.json({access_token: token})
-=======
 
                     req.body.role = user.role 
                     req.body.name = `${user.first_name} ${user.last_name} `
 
                     return res.json({message: 'Authorized Access', access_token: token})
->>>>>>> Stashed changes:Controllers/auth/loginC.js
-=======
-
-                    req.role = user.role 
-                    req.name = `${user.first_name} ${user.last_name} `
-                    req.token = token 
-
-                    return res.json({message: 'Authorized Access',access_token: token})
->>>>>>> origin/ModelControllers:Controllers/auth/loginC.js
                 })
                 .catch(e => res.status(500).json({message: 'Check logging failed', error: e}))
         })

@@ -1,13 +1,5 @@
 const { DataTypes } = require('sequelize');
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-const sequelize = require('../../init/GVPAsequelize');
-=======
 const sequelize = require('../../Connection/GVP');
->>>>>>> Stashed changes
-=======
-const sequelize = require('../../sequelize');
->>>>>>> origin/ModelControllers
 const bcrypt = require('bcrypt')
 const UserRole = require('./userRole')
 const makeUsername = require('../../../Utils/makeUsername');
@@ -91,9 +83,6 @@ User.add = async function(ln, fn, email, birth, address, phone, password, role, 
     }
 }   
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 User.afterCreate = (user)=>{
     // make usename key with id?
 }
@@ -102,12 +91,5 @@ User.beforeUpdate = async function(user){
     
 }
 
->>>>>>> Stashed changes
-=======
-User.beforeUpdate = async function(){
-    
-}
-
->>>>>>> origin/ModelControllers
 module.exports = User
 // console.log(User === sequelize.models.User);

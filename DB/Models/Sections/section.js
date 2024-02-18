@@ -1,14 +1,6 @@
 const { DataTypes } = require('sequelize');
-<<<<<<< HEAD:DB/Models/Sections/servicesSection.js
-<<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
-const sequelize = require('../../init/GVPAsequelize');
-=======
 const sequelize = require('../../Connection/GVP');
 const SectionPage = require('./sectionPage')
->>>>>>> Stashed changes:DB/Models/Sections/section.js
-=======
-const sequelize = require('../../sequelize');
->>>>>>> origin/ModelControllers:DB/Models/Sections/section.js
 
 const Section = sequelize.define('section',{
     
@@ -30,12 +22,6 @@ const Section = sequelize.define('section',{
         
     },
     position:{
-<<<<<<< HEAD:DB/Models/Sections/servicesSection.js
-<<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
-        type: DataTypes.INTEGER(2),
-
-    },
-=======
         type: DataTypes.INTEGER,
         defaultValue: 0
 
@@ -45,23 +31,10 @@ const Section = sequelize.define('section',{
         allowNull: false,
 
     }
->>>>>>> Stashed changes:DB/Models/Sections/section.js
-=======
-        type: DataTypes.INTEGER,
-        defaultValue: this.id
-    },
-    section:{
-        type: DataTypes.INTEGER
-    }
->>>>>>> origin/ModelControllers:DB/Models/Sections/section.js
 },{
     paranoid: true
 });
 
-<<<<<<< HEAD:DB/Models/Sections/servicesSection.js
-<<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
-module.exports = ServicesSection
-=======
 Section.belongsTo(SectionPage,{
     onDelete: 'CASCADE',
     foreignKey:'page', 
@@ -86,8 +59,4 @@ Section.getSectionbyPage = async (page)=>{
 }
 
 module.exports = Section
->>>>>>> Stashed changes:DB/Models/Sections/section.js
-=======
-module.exports = Section
->>>>>>> origin/ModelControllers:DB/Models/Sections/section.js
 // console.log(Section === sequelize.models.Section);
